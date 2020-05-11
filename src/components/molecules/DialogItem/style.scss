@@ -1,0 +1,80 @@
+@import "../../../assets/styles/variables";
+
+.dialog-item {
+  position: relative;
+
+  &__avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  &__link {
+    width: 100%;
+
+    &:hover {
+      background: rgba(166, 189, 240, .13);
+    }
+  }
+
+  .last-message {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &__author {
+      font-size: 0.75rem;
+      margin-right: $default-margin;
+      color: $blue;
+    }
+
+    &__message {
+      word-break: break-word;
+    }
+
+    &__avatar {
+      width: 2rem;
+      height: 2rem;
+      object-fit: cover;
+      margin-right: 0.25rem;
+    }
+  }
+
+
+  &__btn {
+    margin-left: $default-margin;
+
+    & > span:last-child {
+      display: none;
+      margin-left: 0!important;
+    }
+  }
+
+
+  @media (max-width: 576px) {
+    &__btn {
+      position: absolute!important;
+      right: 10px;
+      top: 10px;
+
+      & > span:first-child {
+        display: none!important;
+      }
+
+      & > span:last-child {
+        display: block;
+      }
+    }
+
+    &__partner-name {
+      margin-bottom: 0;
+    }
+
+    &__link {
+
+      .ant-list-item-meta-avatar {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+}

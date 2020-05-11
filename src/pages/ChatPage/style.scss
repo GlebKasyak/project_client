@@ -1,0 +1,96 @@
+@import "../../assets/styles/variables";
+
+.chat-page {
+  $self: &;
+  margin: auto;
+
+  max-width: 700px!important;
+  width: 100%;
+  position: relative;
+
+  &__window {
+    @extend %display-flex-center;
+    height: calc(100vh - 171px)!important;
+
+    .infinite-container {
+      position: relative;
+      max-height: 70%;
+      height: 100%;
+      width: 100%;
+      overflow-y: auto;
+    }
+
+    #{ $self }__header {
+
+      .ant-page-header-heading-title {
+        font-size: 1rem;
+        color: rgba(0, 0, 0, .45);
+      }
+    }
+  }
+
+
+  &__form {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: $white;
+    height: 70px;
+
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    right: 0;
+
+
+    #{ $self }__smile-btn {
+      display: flex;
+      font-size: 1.375rem;
+      position: absolute;
+      left: -40px;
+    }
+
+    #{ $self }__emoji-picker {
+      position: absolute;
+      z-index: 1;
+      bottom: 60px;
+      left: 0;
+    }
+  }
+
+  @media(max-width: 767px) {
+
+    &__form {
+      flex-direction: column;
+
+      #{ $self }__emoji-picker {
+        bottom: 100px;
+        left: auto;
+      }
+
+      .btn {
+        margin-top: 0.675rem;
+      }
+
+      #{ $self }__smile-btn {
+        left: -50px;
+      }
+
+    }
+  }
+
+  @media(max-width: 575px) {
+
+      &__form {
+
+        #{ $self }__emoji-picker {
+
+          .emoji-mart {
+            width: 250px!important;
+          }
+        }
+      }
+  }
+}
+
+
