@@ -86,10 +86,10 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
             }
         });
 
-        socket.socket.on("read messages", (readMessages: Array<string>) => {
+        socket.socket.on("read messages", (readMessageKeys: Array<string>) => {
             setMessages((prevMessages: Array<IMessage>) => prevMessages.map(message => {
-                for(let i = 0; i < readMessages.length; i ++) {
-                    message = readMessages[i] === message._id ? { ...message, unread: false } : message;
+                for(let i = 0; i < readMessageKeys.length; i ++) {
+                    message = readMessageKeys[i] === message._id ? { ...message, unread: false } : message;
                 }
 
                 return message;
@@ -184,10 +184,10 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
     }
 
     const handleReadMessage = () => {
-        const unreadMessages = [] as Array<string>;
-        messages.map(message => (message.author._id !== user._id) && message.unread && unreadMessages.push(message._id))
+        const unreadMessageKeys = [] as Array<string>;
+        messages.map(message => (message.author._id !== user._id) && message.unread && unreadMessageKeys.push(message._id))
 
-        !!unreadMessages.length && socket.socket.emit("read messages", { dialogId: queryData.dialogId, unreadMessages });
+        !!unreadMessageKeys.length && socket.socket.emit("read messages", { dialogId: queryData.dialogId, unreadMessageKeys });
     }
 
     const handleEmojiPicker = (emoji: BaseEmoji) => setMessage(message + emoji.native);
