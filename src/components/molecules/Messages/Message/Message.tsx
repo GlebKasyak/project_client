@@ -23,11 +23,15 @@ const Message: FC<PropsType> = (
         onDelete,
         onEdit
     }) => {
+
     let self = userId === message.author._id;
     const name = self ? "You" : message.author.firstName;
 
     return (
-        <div className={ cn(`message mt-1 ${ message.message }`, { "message--self": self }) } ref={ scrollToRef } >
+        <div
+            className={ cn(`message mt-1 ${ message.message }`, { "message--self": self }) }
+            ref={ scrollToRef }
+        >
             <div className="message__inside-wrapper">
                 <time className="message__time">{ getTimeMessage(message.createdAt!) }</time>
                 <p className="message__author-name">
@@ -48,7 +52,7 @@ const Message: FC<PropsType> = (
                             className="message__delete-message"
                         />
                         <icons.EditOutlined onClick={ onEdit.bind(null, message._id, message.message) } />
-                        { message.unread && <span>unread</span> }
+                        { message.unread && <span className="message__message-status" /> }
                     </>
                 }
                 { message.isChanged && <span className="message__message-edited" >edited</span> }

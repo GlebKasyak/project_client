@@ -13,6 +13,7 @@ type PropsType = {
     onChange: Handlers.ChangeType,
     onDelete: (messageId: string) => void,
     onEdit: (messageId: string, messageText: string) => void,
+    onReadMessages: () => void,
     onScroll: (e: any) => void,
     goBack: () => void,
     onEmojiPicker: (emoji: BaseEmoji) => void
@@ -32,7 +33,7 @@ type PropsType = {
 
 const ChatPage: FC<PropsType> = props => (
     <div className="container" >
-        <div className="chat-page">
+        <div className="chat-page" onMouseEnter={ props.onReadMessages }>
             <Typography.Title level={4} className="center chat-page_title">
                 { props.dialogName }
             </Typography.Title>
@@ -45,21 +46,21 @@ const ChatPage: FC<PropsType> = props => (
                     />
 
                 </div>
-                <div className="infinite-container" ref={ props.scrollToStart } onScroll={ props.onScroll } >
+                <div ref={ props.scrollToStart } onScroll={ props.onScroll } className="infinite-container" >
                     { !!props.messages.length &&
-                    <>
-                        { props.isLoading &&
-                            <Preloader text="Messages are loading" modifier="top-scroll-loader" />
-                        }
-                        <Messages
-                            scrollToLastMessageRef={ props.scrollToLastMessageRef }
-                            thtLastMessageId={ props.thtLastMessageId }
-                            messages={ props.messages }
-                            userId={ props.userId }
-                            onDelete={ props.onDelete }
-                            onEdit={ props.onEdit }
-                        />
-                    </>
+                        <>
+                            { props.isLoading &&
+                                <Preloader text="Messages are loading" modifier="top-scroll-loader" />
+                            }
+                            <Messages
+                                scrollToLastMessageRef={ props.scrollToLastMessageRef }
+                                thtLastMessageId={ props.thtLastMessageId }
+                                messages={ props.messages }
+                                userId={ props.userId }
+                                onDelete={ props.onDelete }
+                                onEdit={ props.onEdit }
+                            />
+                        </>
                     }
                 </div>
             </Row>

@@ -10,7 +10,7 @@ type PropsType = {
     userId: string,
     thtLastMessageId: string
     onDelete: (messageId: string) => void,
-    onEdit: (messageId: string, messageText: string) => void
+    onEdit: (messageId: string, messageText: string) => void,
 };
 
 const Messages: FC<PropsType> = (

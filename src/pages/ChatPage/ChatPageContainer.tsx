@@ -41,7 +41,7 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
 
     const [queryData, setQueryData] = useState({ partner: "", dialogId: "", partnerId: "" });
 
-    const [messages, setMessages] = useState<Array<IMessage> | []>([]);
+    const [messages, setMessages] = useState<Array<IMessage>>([]);
     const [thtLastMessageId, setTheLastMessageId] = useState("");
 
 
@@ -86,6 +86,16 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
             }
         });
 
+        socket.socket.on("read messages", (readMessages: Array<string>) => {
+            setMessages((prevMessages: Array<IMessage>) => prevMessages.map(message => {
+                for(let i = 0; i < readMessages.length; i ++) {
+                    message = readMessages[i] === message._id ? { ...message, unread: false } : message;
+                }
+
+                return message;
+            }));
+        });
+
         type TypingDataType = {
             typingMessage: string,
             isTyping: boolean
@@ -101,6 +111,7 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
             socket.socket.off("new message");
             socket.socket.off("edit message");
             socket.socket.off("delete message");
+            socket.socket.off("read messages");
             socket.socket.off("typing");
         };
     }, [thtLastMessageId, messages]);
@@ -172,6 +183,13 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
         });
     }
 
+    const handleReadMessage = () => {
+        const unreadMessages = [] as Array<string>;
+        messages.map(message => (message.author._id !== user._id) && message.unread && unreadMessages.push(message._id))
+
+        !!unreadMessages.length && socket.socket.emit("read messages", { dialogId: queryData.dialogId, unreadMessages });
+    }
+
     const handleEmojiPicker = (emoji: BaseEmoji) => setMessage(message + emoji.native);
 
     return <ChatPage
@@ -181,6 +199,7 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
         onEmojiPicker={ handleEmojiPicker }
         onDelete={ handleDeleteMessage }
         onEdit={ handleEditMessage }
+        onReadMessages={ handleReadMessage }
         goBack={ history.goBack }
         message={ message }
         openEmoji={ setShowEmojiPicker }

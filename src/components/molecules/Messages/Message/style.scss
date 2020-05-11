@@ -44,7 +44,7 @@
     #{ $self }__delete-message {
       cursor: pointer;
       color: rgba(0, 0, 0, .45)!important;
-      margin: 0 0.5rem;
+      margin: 0 0.35rem;
     }
 
     #{ $self }__box {
@@ -73,10 +73,6 @@
       margin-left: 0;
       margin-right: auto;
 
-      //#{ $self }__time {
-      //  right: auto;
-      //}
-
       #{ $self }__box {
         border-radius: 0.5rem 0.5rem 0.5rem 0;
         background: $blue;
@@ -86,6 +82,15 @@
       #{ $self }__author-name {
         padding-right: 0.75rem;
       }
+    }
+
+    #{ $self }__message-status {
+      border-radius: 100%;
+      width: 0.5rem;
+      height: 0.5rem;
+      background: $light-blue;
+      margin-left: 0.25rem;
+      margin-top: 0.188rem;
     }
   }
 

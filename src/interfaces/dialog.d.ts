@@ -28,8 +28,8 @@ export interface IMessage extends IDbDocumentType {
     message: string,
     author: IUser,
     dialog: string,
-    unread: boolean,
-    isChanged: boolean
+    isChanged: boolean,
+    unread: boolean
 }
 
 export interface IResponseDialogsData extends ResponseType {
