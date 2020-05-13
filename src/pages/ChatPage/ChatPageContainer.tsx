@@ -10,9 +10,12 @@ import { UserSelectors } from "../../store/selectors";
 import { AppStateType } from "../../store/reducers";
 
 import socket from "../../socketServices";
+import { TypesFileEnum } from "../../assets/constants/api.contsnts";
+import { socketEvents } from "../../assets/constants";
+import { DialogAPI } from "../../apiServices/dialogAPI";
 import { Handlers } from "../../interfaces/common";
 import { IUser } from "../../interfaces/user";
-import { IMessage } from "../../interfaces/dialog";
+import { IMessage, MessageTypes, EnumTypeOfMessage } from "../../interfaces/dialog";
 
 
 type PropsType = {
@@ -38,6 +41,8 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const [isVisibleAudio, seIsVisibleAudio] = useState(false);
+    const [err, setErr] = useState("");
 
     const [queryData, setQueryData] = useState({ partner: "", dialogId: "", partnerId: "" });
 
@@ -51,7 +56,7 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
             setQueryData({ dialogId: id, partner, partnerId });
 
             if(!!user.firstName) {
-                socket.socket.emit("join", { dialogId: id, limit }, (messages: Array<IMessage>) => {
+                socket.socket.emit(socketEvents.join, { dialogId: id, limit }, (messages: Array<IMessage>) => {
                     !!messages.length && setTheLastMessageId(messages[messages.length - 1]._id);
                     setMessages(messages.reverse());
 
@@ -61,9 +66,8 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
 
     }, [history.location.search, user.firstName, messages.length]);
 
-
     useEffect(() => {
-        socket.socket.on("new message", (message: IMessage) => {
+        socket.socket.on(socketEvents.newMsg, (message: IMessage) => {
             setMessages(prevMessages => [...prevMessages, message]);
 
             setIsTyping(false);
@@ -71,7 +75,7 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
             setIsSendMessage(false);
         });
 
-        socket.socket.on("edit message", (modifiedMessage: IMessage) => {
+        socket.socket.on(socketEvents.editMsg, (modifiedMessage: IMessage) => {
             setMessages((prevMessages: Array<IMessage>) => prevMessages.map(
                 message => message._id === modifiedMessage._id ? modifiedMessage : message
             ));
@@ -79,14 +83,14 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
             setIsTyping(false);
         });
 
-        socket.socket.on("delete message", (messageId: string) => {
+        socket.socket.on(socketEvents.deleteMsg, (messageId: string) => {
             setMessages(prevMessages => prevMessages.filter(message => message._id !== messageId));
             if(thtLastMessageId === messageId) {
                 setTheLastMessageId(messages[messages.length - 1]._id);
             }
         });
 
-        socket.socket.on("read messages", (readMessageKeys: Array<string>) => {
+        socket.socket.on(socketEvents.readMsg, (readMessageKeys: Array<string>) => {
             setMessages((prevMessages: Array<IMessage>) => prevMessages.map(message => {
                 for(let i = 0; i < readMessageKeys.length; i ++) {
                     message = readMessageKeys[i] === message._id ? { ...message, unread: false } : message;
@@ -101,18 +105,18 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
             isTyping: boolean
         }
 
-        socket.socket.on("typing", ({ typingMessage, isTyping }: TypingDataType) => {
+        socket.socket.on(socketEvents.typing, ({ typingMessage, isTyping }: TypingDataType) => {
             setTypingMessage(typingMessage);
             setIsTyping(isTyping);
         });
 
         return () => {
-            socket.socket.off("join");
-            socket.socket.off("new message");
-            socket.socket.off("edit message");
-            socket.socket.off("delete message");
-            socket.socket.off("read messages");
-            socket.socket.off("typing");
+            socket.socket.off(socketEvents.join);
+            socket.socket.off(socketEvents.newMsg);
+            socket.socket.off(socketEvents.editMsg);
+            socket.socket.off(socketEvents.deleteMsg);
+            socket.socket.off(socketEvents.readMsg);
+            socket.socket.off(socketEvents.typing);
         };
     }, [thtLastMessageId, messages]);
 
@@ -126,14 +130,19 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
         if(scrollToStart.current) {
             scrollToStart.current.scrollTo(0, scrollToStart.current.scrollHeight);
         }
-    }, [isSendMessage, isTyping]);
+
+        return () => {
+            socket.socket.emit(socketEvents.typing,
+                { isTyping: false, typingMessage: "", dialogId: queryData.dialogId });
+        }
+    }, [isSendMessage, isTyping, queryData.dialogId]);
 
     const handleScroll = (e: UIEvent<HTMLDivElement>) => {
         if(e.currentTarget.scrollTop === 0 && hasMore) {
             setIsLoading(true);
 
             scrollToLastMessageRef.current && scrollToLastMessageRef.current.scrollIntoView();
-            socket.socket.emit("previous messages",
+            socket.socket.emit(socketEvents.prevMsg,
                 { dialogId: queryData.dialogId, limit, lastMessageId: thtLastMessageId }, (messages: Array<IMessage>) => {
 
                     !!messages.length && setTheLastMessageId(messages[messages.length - 1]._id);
@@ -144,8 +153,8 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
         }
     }
 
-    const handleDeleteMessage = (messageId: string) => {
-        socket.socket.emit("delete message", { messageId,  dialogId: queryData.dialogId });
+    const handleDeleteMessage = (messageId: string, type: MessageTypes) => {
+        socket.socket.emit(socketEvents.deleteMsg, { messageId, type, dialogId: queryData.dialogId });
     }
 
     const handleEditMessage = (messageId: string, messageText: string) => {
@@ -158,9 +167,12 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
 
         if(!modifiedMessageData.isEditing) {
             setIsSendMessage(true);
-            socket.socket.emit("create new message", { message, dialog: queryData.dialogId, author: user._id });
+            socket.socket.emit(socketEvents.createNewMsg,
+                { message, type: EnumTypeOfMessage.text, dialog: queryData.dialogId, author: user._id });
+
+            setErr("");
         } else {
-            socket.socket.emit("edit message", {
+            socket.socket.emit(socketEvents.editMsg, {
                 message,
                 dialog: queryData.dialogId,
                 messageId: modifiedMessageData.messageId
@@ -187,10 +199,39 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
         const unreadMessageKeys = [] as Array<string>;
         messages.map(message => (message.author._id !== user._id) && message.unread && unreadMessageKeys.push(message._id))
 
-        !!unreadMessageKeys.length && socket.socket.emit("read messages", { dialogId: queryData.dialogId, unreadMessageKeys });
+        !!unreadMessageKeys.length && socket.socket.emit(socketEvents.readMsg, { dialogId: queryData.dialogId, unreadMessageKeys });
     }
 
     const handleEmojiPicker = (emoji: BaseEmoji) => setMessage(message + emoji.native);
+
+    const handleSendImage: Handlers.ChangeType = async e => {
+        try {
+            setErr("");
+            const message = await DialogAPI.uploadFile(TypesFileEnum.imageMessage, e.target.files![0]);
+
+            setIsSendMessage(true);
+            socket.socket.emit(socketEvents.createNewMsg, {
+                    message: message.data.url,
+                    type: EnumTypeOfMessage.image,
+                    dialog: queryData.dialogId,
+                    author: user._id
+                });
+        } catch (err) {
+           setErr("File type must be image")
+        }
+    }
+
+    const handleSendAudio = async (blob: Blob) => {
+        const message = await DialogAPI.uploadFile(TypesFileEnum.audio, blob);
+
+        setIsSendMessage(true);
+        socket.socket.emit(socketEvents.createNewMsg, {
+            message: message.data.url,
+            type: EnumTypeOfMessage.audio,
+            dialog: queryData.dialogId,
+            author: user._id
+        });
+    }
 
     return <ChatPage
         onSubmit={ handleSubmit }
@@ -199,7 +240,9 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
         onEmojiPicker={ handleEmojiPicker }
         onDelete={ handleDeleteMessage }
         onEdit={ handleEditMessage }
+        onSendImage={ handleSendImage }
         onReadMessages={ handleReadMessage }
+        handleSendAudio={ handleSendAudio }
         goBack={ history.goBack }
         message={ message }
         openEmoji={ setShowEmojiPicker }
@@ -213,6 +256,9 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
         scrollToStart={ scrollToStart }
         scrollToLastMessageRef={ scrollToLastMessageRef }
         thtLastMessageId={ thtLastMessageId }
+        err={ err }
+        seIsVisibleAudio={ () => seIsVisibleAudio(!isVisibleAudio) }
+        isVisibleAudio={ isVisibleAudio }
     />
 }
 

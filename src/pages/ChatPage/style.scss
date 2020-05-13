@@ -3,6 +3,7 @@
 .chat-page {
   $self: &;
   margin: auto;
+  border: solid 0.125rem $lite-grey;
 
   max-width: 700px!important;
   width: 100%;
@@ -14,13 +15,17 @@
 
     .infinite-container {
       position: relative;
-      max-height: 70%;
+      max-height: 75%;
       height: 100%;
       width: 100%;
       overflow-y: auto;
     }
 
     #{ $self }__header {
+      border-width: 0.063rem 0 0.063rem;
+      border-style: solid none solid;
+      border-color: $lite-grey;
+      box-shadow: 0 5px 3px $lite-grey;
 
       .ant-page-header-heading-title {
         font-size: 1rem;
@@ -32,13 +37,14 @@
 
   &__form {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     background: $white;
-    height: 70px;
+    height: 3.125rem;
+    border-top: 0.063rem solid $lite-grey;
 
     position: absolute;
-    bottom: -1rem;
+    bottom: 0;
     left: 0;
     right: 0;
 
@@ -47,7 +53,8 @@
       display: flex;
       font-size: 1.375rem;
       position: absolute;
-      left: -40px;
+      right: 0.5rem;
+      z-index: 2;
     }
 
     #{ $self }__emoji-picker {
@@ -56,33 +63,47 @@
       bottom: 60px;
       left: 0;
     }
+
+    #{ $self }__input-field .ant-input {
+      padding-right: 2.5rem;
+    }
+
+    #{ $self }__audio-btn {
+      margin: 0 0.75rem;
+    }
+
+    .form-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #{ $self }__enter-btn {
+      max-width: 2rem;
+
+      @extend %display-flex-center;
+    }
+
+    #{ $self }__alert-err {
+      position: absolute;
+      bottom: -2.5rem;
+      width: 100%;
+    }
   }
 
   @media(max-width: 767px) {
 
     &__form {
-      flex-direction: column;
 
       #{ $self }__emoji-picker {
         bottom: 100px;
         left: auto;
       }
-
-      .btn {
-        margin-top: 0.675rem;
-      }
-
-      #{ $self }__smile-btn {
-        left: -50px;
-      }
-
     }
   }
 
   @media(max-width: 575px) {
 
       &__form {
-
         #{ $self }__emoji-picker {
 
           .emoji-mart {
@@ -90,6 +111,16 @@
           }
         }
       }
+  }
+
+  @media (max-width: 400px) {
+
+    &__form {
+
+      #{ $self }__audio-btn {
+        margin: 0 0.25rem;
+      }
+    }
   }
 }
 

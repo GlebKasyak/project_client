@@ -43,7 +43,7 @@ const DialogsPageContainer: FC<PropsType> = (
         clearDialogList
     }) => {
 
-    const limit = 6;
+    const limit = 8;
 
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -113,7 +113,7 @@ const DialogsPageContainer: FC<PropsType> = (
                 getAllDialogs={ getAllDialogs }
                 page={ page }
             />
-            { !dialogs.length &&  <EmptyComponent description="Dialogs list is empty" /> }
+            { !dialogs.length && <EmptyComponent description="Dialogs list is empty" /> }
         </>
     )
 }
