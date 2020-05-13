@@ -1,0 +1,61 @@
+@import "../../../../../assets/styles/variables";
+
+.message {
+  $self: &;
+
+  &__box--audio {
+    max-width: 350px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+
+    #{ $self }__audio {
+
+      audio {
+        display: none;
+      }
+
+      &-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      &-btn {
+
+        button {
+          border: 0;
+          background: $white;
+          width: 1.875rem;
+          height: 1.875rem;
+          border-radius: 50%;
+        }
+      }
+
+      &-wave img {
+        max-width: 110px;
+        width: 100%;
+      }
+
+      &-duration {
+        color: $white;
+        font-weight: 500;
+        opacity: 0.8;
+        font-size: 0.75rem;
+        position: relative;
+        right: 0.5rem;
+      }
+
+      &-progress {
+        background-color: $blue;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        transition: width 0.5s linear;
+      }
+    }
+  }
+}
