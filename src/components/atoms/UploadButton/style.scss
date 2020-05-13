@@ -1,6 +1,8 @@
 @import "../../../assets/styles/variables";
 
 .upload-file {
+  $self: &;
+
   position: relative;
   padding: 0.5rem;
   background-color: $blue;
@@ -24,6 +26,24 @@
     color: transparent;
     outline: none;
     opacity: 0;
+  }
+
+  &--chat-page {
+    margin: 0 0.75rem 0;
+    height: 1.875rem;
+    width: 1.875rem;
+
+    @extend %display-flex-center;
+
+    #{ $self }__icon {
+      margin: auto;
+    }
+  }
+
+  @media (max-width: 400px) {
+    &--chat-page {
+      margin: 0 0.25rem 0;
+    }
   }
 }
 

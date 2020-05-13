@@ -1,28 +1,30 @@
-import React, { ChangeEvent, FC } from "react";
-import { connect } from "react-redux";
+import React, { FC } from "react";
+import { Icon } from "antd";
 
-import { uploadAvatar } from "../../../store/actions/user.action";
-import { ThunkDispatchUsersType } from "../../../store/actions/user.action";
-import icons from "../../../shared/icons";
+import { Handlers } from "../../../interfaces/common";
 import "./style.scss";
 
 
 type Props = {
-    text: string,
-    dispatch: ThunkDispatchUsersType
+    text?: string,
+    callback?: Handlers.ChangeType,
+    modifier?: string
+    iconType?: string
 };
 
-const UploadButton: FC<Props> = ({ text, dispatch }) => {
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(uploadAvatar("avatar", e.target.files![0]));
-    };
+const UploadButton: FC<Props> = (
+    { text,
+        callback,
+        modifier,
+        iconType
+    }) => {
 
     return (
-        <div className="upload-file btn">
-            <icons.UploadOutlined className="upload-file__icon" />{ text }
-            <input onChange={ handleChange } type="file" className="upload-file__file-btn" />
+        <div className={ `upload-file btn upload-file--${ modifier }` }>
+            { iconType && <Icon type={ iconType } className="upload-file__icon" /> }{ text }
+            <input onChange={ callback } type="file" className="upload-file__file-btn" />
         </div>
     )
 };
 
-export default connect()(UploadButton);
+export default UploadButton;
