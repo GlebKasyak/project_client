@@ -2,14 +2,14 @@ import React, { FC, RefObject } from "react";
 
 import Message from "./Message/Message";
 
-import { IMessage } from "../../../interfaces/dialog";
+import { IMessage, MessageTypes } from "../../../interfaces/dialog";
 
 type PropsType = {
     scrollToLastMessageRef: RefObject<HTMLDivElement>,
     messages: Array<IMessage>,
     userId: string,
     thtLastMessageId: string
-    onDelete: (messageId: string) => void,
+    onDelete: (messageId: string, type: MessageTypes) => void,
     onEdit: (messageId: string, messageText: string) => void,
 };
 

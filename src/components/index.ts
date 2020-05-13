@@ -19,5 +19,6 @@ export { default as UserCard } from "./molecules/UserCard/UserCard";
 export { default as Messages } from "./molecules/Messages/Messages";
 export { default as DialogItem } from "./molecules/DialogItem/DialogItem";
 export { default as Search } from "./molecules/Search/SearchContainer";
+export { default as Mp3Recorder } from "./molecules/Mp3Recorder/Mp3RecorderContainer";
 
 
