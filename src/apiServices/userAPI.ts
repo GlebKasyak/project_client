@@ -1,4 +1,6 @@
 import axios from "axios";
+
+import { TypesFileEnum } from "../assets/constants/api.contsnts";
 import { ScrollDataType } from "../interfaces/common";
 import { LoginDataType, RegisterDataType } from "../interfaces/user";
 
@@ -14,8 +16,8 @@ export class UserAPI {
     static getUsers = ({ userId, limit, page }: ScrollDataType) =>
         axios.get(`/users/all?userId=${ userId }&limit=${ limit }&page=${ page }`);
 
-    static uploadAvatar = (type: string, file: File) => {
-        const formData: FormData = new FormData();
+    static uploadAvatar = (type: TypesFileEnum.avatar, file: File) => {
+        const formData = new FormData();
         formData.append(type, file);
 
         return axios.post("/users/upload-avatar", formData, {
