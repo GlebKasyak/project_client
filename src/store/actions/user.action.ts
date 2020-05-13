@@ -4,6 +4,7 @@ import * as userTypes from "../types/userTypes";
 import { UserAPI } from "../../apiServices/userAPI";
 import { AppStateType, InferActionsTypes } from "../reducers";
 import { storageKeys } from "../../assets/constants/commons";
+import { TypesFileEnum } from "../../assets/constants/api.contsnts";
 
 import { ResponseType, ScrollDataType } from "../../interfaces/common";
 import { IUser, LoginDataType } from "../../interfaces/user";
@@ -66,11 +67,18 @@ export const getUsers = (data: ScrollDataType): ThunkActionType<Array<IUser>> =>
     return users;
 };
 
-export const uploadAvatar = (type: string, file: File): ThunkActionType<void> => async dispatch => {
-    const response = await UserAPI.uploadAvatar(type, file);
+export const uploadAvatar = (type: TypesFileEnum.avatar, file: File): ThunkActionType<boolean> => async dispatch => {
+   try {
+       const response = await UserAPI.uploadAvatar(type, file);
 
-    const { success, avatar } = response.data;
-    if(success) dispatch(userActions.uploadAvatarAC(avatar!));
+       const { success, avatar } = response.data;
+       if(success) {
+           dispatch(userActions.uploadAvatarAC(avatar!));
+           return success;
+       }
+   } catch (err) {
+        return false;
+   }
 };
 
 export const removeUser = (): ThunkActionType<void> => async dispatch => {

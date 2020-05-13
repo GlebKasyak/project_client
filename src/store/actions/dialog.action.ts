@@ -18,7 +18,6 @@ export const dialogActions = {
 type ThunkActionType<T> = ThunkAction<Promise<T>, AppStateType, unknown, InferActionsTypes<typeof dialogActions>>;
 export type ThunkDispatchDialogsType = ThunkDispatch<AppStateType, unknown, InferActionsTypes<typeof dialogActions>>;
 
-
 export const getDialogsById = (data: ScrollDataType): ThunkActionType<IResponseDialogsData> => async dispatch => {
     try {
         const response = await DialogAPI.getDialogsById(data);
