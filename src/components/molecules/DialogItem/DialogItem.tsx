@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { List, Button } from "antd";
+import cn from "classnames";
 
 import UserAvatar from "../../atoms/UserAvatar/UserAvatar";
 
-import { LastMessageType } from "../../../interfaces/dialog";
+import { IMessage, MessageTypes, EnumTypeOfMessage } from "../../../interfaces/dialog";
 import { getShortenString } from "../../../shared/helpres";
 import icons from "../../../shared/icons";
 import { ENV } from "../../../assets/constants";
@@ -14,7 +15,7 @@ type PropsType = {
     name: string,
     avatar: string,
     status: boolean,
-    lastMessage: LastMessageType,
+    lastMessage: IMessage,
     dialogId: string,
     onClick: (dialogId: string) => void,
 }
@@ -34,15 +35,19 @@ const DialogItem: FC<PropsType> = (
                 avatar={ <UserAvatar avatar={ avatar } status={ status } /> }
                 title={ <p className="dialog-item__partner-name">{ name }</p> }
                 description={
-                    <div className="last-message">
-                        <img
-                            src={ `${ ENV.SERVER_URL }/${ lastMessage.avatar }` }
-                            alt={ lastMessage.name }
-                            className="last-message__avatar img"
-                        />
-                        <span className="last-message__author" >{ lastMessage.name }:</span>
-                        <span className="last-message__message">{  getShortenString(lastMessage.message) }</span>
-                    </div>
+                    lastMessage && (
+                        <div className="last-message">
+                            <img
+                                src={ `${ ENV.SERVER_URL }/${ lastMessage.author.avatar }` }
+                                alt={ lastMessage.author.firstName }
+                                className="last-message__avatar img"
+                            />
+                            <span className="last-message__author" >{ lastMessage.author.firstName }:</span>
+                            <span className={ cn("last-message__message", { "last-message__message--unread": lastMessage.unread }) } >
+                                {  getLastMessage(lastMessage.type, getShortenString(lastMessage.message)) }
+                            </span>
+                        </div>
+                    )
                 }
             />
         </Link>
@@ -56,5 +61,16 @@ const DialogItem: FC<PropsType> = (
         </Button>
     </List.Item>
 )
+
+const getLastMessage = (type: MessageTypes, message: string) => {
+    switch (type) {
+        case EnumTypeOfMessage.text:
+            return message;
+        case EnumTypeOfMessage.image:
+            return "Image file";
+        case EnumTypeOfMessage.audio:
+            return "Audio file";
+    }
+}
 
 export default DialogItem;
