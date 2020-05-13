@@ -1,5 +1,6 @@
 import io from "socket.io-client";
-import { ENV } from "../assets/constants";
+
+import { ENV, socketEvents } from "../assets/constants";
 
 type UserStatusData = {
    userId: string,
@@ -9,7 +10,7 @@ type UserStatusData = {
 class Socket {
    socket = io( ENV.SERVER_URL );
 
-   public setOnlineStatus = (data: UserStatusData) => this.socket.emit("isOnline", data);
+   public setOnlineStatus = (data: UserStatusData) => this.socket.emit(socketEvents.isOnline, data);
 }
 
 export default new Socket();
