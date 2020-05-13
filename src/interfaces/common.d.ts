@@ -9,7 +9,7 @@ export interface ResponseType {
 
 export namespace Handlers {
     type SubmitType = (e: SubmitTypes) => Promise<void> | void;
-    type ChangeType = (e: ChangeTypes) => void;
+    type ChangeType = (e: React.ChangeEvent<HTMLInputElement>) => void;
     type ClickType = (e: React.MouseEvent<HTMLButtonElement>) => void;
 
     type SubmitTypes =
@@ -17,9 +17,6 @@ export namespace Handlers {
         | React.KeyboardEvent<HTMLTextAreaElement>
         | React.MouseEvent<HTMLElement, MouseEvent>
 
-    type ChangeTypes =
-        | React.ChangeEvent<HTMLInputElement>
-        | React.ChangeEvent<HTMLTextAreaElement>
 }
 
 export type SetStateType<T> = Dispatch<SetStateAction<T>>;

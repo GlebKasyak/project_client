@@ -29,6 +29,12 @@ export const getDataFromQueryUrl = (query: string) => {
         .reduce((acc, curr) => {
             acc[curr[0]] = curr[1]; return acc;
         }, {} as DataType)
-}
+};
+
+export const convertCurrentTime = (number: number) => {
+    const mins = Math.floor(number / 60);
+    const secs = Number((number % 60).toFixed());
+    return `${ mins < 10 ? "0" : "" }${ mins }:${ secs < 10 ? "0" : "" }${ secs }`
+};
 
 export const exhaustiveCheck = (_: never) => {};

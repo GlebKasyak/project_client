@@ -11,27 +11,30 @@ export interface DialogState {
     ifSearching: boolean
 }
 
-export type LastMessageType = {
-    message: string,
-    avatar: string,
-    name: string
-}
-
 export interface IDialog extends IDbDocumentType {
     author: IUser,
     partner: IUser,
     messages?: Array<IMessage>,
-    lastMessage: LastMessageType
+    lastMessage: IMessage
 }
+
+export enum EnumTypeOfMessage {
+    text = "text",
+    image = "image",
+    audio = "audio"
+}
+
+export type MessageTypes = EnumTypeOfMessage.text | EnumTypeOfMessage.image | EnumTypeOfMessage.audio;
 
 export interface IMessage extends IDbDocumentType {
     message: string,
     author: IUser,
     dialog: string,
     isChanged: boolean,
-    unread: boolean
+    unread: boolean,
+    type: MessageTypes
 }
 
 export interface IResponseDialogsData extends ResponseType {
-    dialogs?: Array<IDialog>
+    dialogs: Array<IDialog>
 }

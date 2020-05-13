@@ -12,7 +12,11 @@ import {
     MessageOutlined,
     UserOutlined,
     ExclamationCircleOutlined,
-    UploadOutlined
+    UploadOutlined,
+    EnterOutlined,
+    AudioTwoTone,
+    FileImageTwoTone,
+    PauseOutlined
 
 } from "@ant-design/icons";
 
@@ -30,5 +34,9 @@ export default {
     MessageOutlined,
     UserOutlined,
     ExclamationCircleOutlined,
-    UploadOutlined
+    UploadOutlined,
+    EnterOutlined,
+    AudioTwoTone,
+    FileImageTwoTone,
+    PauseOutlined
 };
