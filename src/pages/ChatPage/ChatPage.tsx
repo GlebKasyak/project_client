@@ -16,10 +16,10 @@ type PropsType = {
     onEdit: (messageId: string, messageText: string) => void,
     onSendImage: Handlers.ChangeType,
     handleSendAudio: (blob: Blob) => Promise<void>,
+    onEmojiPicker: (emoji: BaseEmoji) => void
     onReadMessages: () => void,
     onScroll: (e: any) => void,
     goBack: () => void,
-    onEmojiPicker: (emoji: BaseEmoji) => void
     openEmoji: SetStateType<boolean>,
     message: string,
     messages: Array<IMessage>,
@@ -95,6 +95,7 @@ const ChatPage: FC<PropsType> = props => (
                         prefix={ <Icon type="message" style={{ color: "rgba(0,0,0, .25)" }} /> }
                         placeholder="Input your message"
                         className="chat-page__input-field"
+                        autoFocus={ true }
                     />
                 </Col>
                 { props.emojiPickerVisible &&
