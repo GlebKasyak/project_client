@@ -1,0 +1,63 @@
+@import "../../../assets/styles/variables";
+
+.profile {
+  $self: &;
+
+  &__status {
+    position: relative;
+    color: $black;
+    word-wrap: break-word;
+    margin-bottom: 1rem;
+
+    &-field span:nth-child(1) {
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    &-field span:nth-child(2) {
+      color: $light-blue;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    #{ $self }__emoji-picker {
+
+      .emoji-mart {
+        position: absolute;
+        top: 110px;
+        max-width: 300px;
+        width: 100%!important;
+      }
+    }
+
+    &-edit {
+      position: absolute;
+      background: $white;
+      width: 100%;
+      height: 100px;
+      z-index: 3;
+
+      textarea {
+        resize: none;
+        position: absolute;
+        font-size: 0.75rem;
+        color: $light-blue;;
+      }
+
+      #{ $self }__buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        #{ $self }__smile-btn {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+}
+

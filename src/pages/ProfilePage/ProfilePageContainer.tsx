@@ -8,7 +8,7 @@ import { Handlers } from "../../interfaces/common";
 import { UserSelectors } from "../../store/selectors";
 import { AppStateType } from "../../store/reducers";
 import { IUser } from "../../interfaces/user";
-import { removeUser, ThunkDispatchUsersType, uploadAvatar } from "../../store/actions/user.action";
+import { removeUser, ThunkDispatchUsersType, uploadAvatar, setUserStatus } from "../../store/actions/user.action";
 
 
 type MapStateToProps = {
@@ -17,12 +17,13 @@ type MapStateToProps = {
 
 type MapDispatchToProps = {
   removeUser: () => void,
-  uploadAvatar: (type: TypesFileEnum.avatar, file: File) => Promise<boolean>
+  uploadAvatar: (type: TypesFileEnum.avatar, file: File) => Promise<boolean>,
+  setUserStatus: (status: string) => void
 }
 
 type Props = MapStateToProps & MapDispatchToProps;
 
-const ProfilePageContainer: FC<Props> = ({ user, removeUser, uploadAvatar }) => {
+const ProfilePageContainer: FC<Props> = ({ user, removeUser, uploadAvatar, setUserStatus }) => {
   const [err, setErr] = useState("");
 
   const handleUploadAvatar: Handlers.ChangeType = async e => {
@@ -36,13 +37,15 @@ const ProfilePageContainer: FC<Props> = ({ user, removeUser, uploadAvatar }) => 
       user={ user }
       removeUser={ removeUser }
       onUploadAvatar={ handleUploadAvatar }
+      setUserStatus={ setUserStatus }
       err={ err }
   />
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatchUsersType) => ({
   removeUser: () => dispatch(removeUser()),
-  uploadAvatar: (type: TypesFileEnum.avatar, file: File) => dispatch(uploadAvatar(type, file))
+  uploadAvatar: (type: TypesFileEnum.avatar, file: File) => dispatch(uploadAvatar(type, file)),
+  setUserStatus: (status: string) => dispatch(setUserStatus(status))
 });
 
 export default connect<MapStateToProps, MapDispatchToProps, {}, AppStateType>(

@@ -12,7 +12,8 @@ export interface IUser extends IDbDocumentType{
     avatar: string,
     password?: string,
     isAuth?: boolean
-    isOnline: boolean
+    isOnline: boolean,
+    status: string
 }
 
 export type LoginDataType = {

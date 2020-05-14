@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Divider, Col, Row, Typography, Button } from "antd";
 
 import { DescriptionItem, UploadButton, ErrorMessage } from "../../components";
+import ProfileStatusContainer from "./ProfileStatus/ProfileStatusContainer";
 
 import { Handlers } from "../../interfaces/common";
 import { IUser } from "../../interfaces/user";
@@ -14,15 +15,19 @@ type PropsType = {
     user: IUser,
     removeUser: () => void,
     onUploadAvatar: Handlers.ChangeType,
+    setUserStatus: (status: string) => void
     err: string
 }
 
-const ProfilePage: FC<PropsType> = ({ user, removeUser, onUploadAvatar, err }) => (
+const ProfilePage: FC<PropsType> = ({ user, removeUser, onUploadAvatar, setUserStatus, err }) => (
     <>
         { !!err && <ErrorMessage text={ err } /> }
         <div className="profile container">
-            <Typography.Title level={4} >User Profile</Typography.Title>
-            <p className="profile__section" >Personal</p>
+            <div className="profile__header" >
+                <Typography.Title level={4} >User Profile</Typography.Title>
+                <span className="profile__status" >{ user.isOnline ? "online" : "offline" }</span>
+            </div>
+            <ProfileStatusContainer userStatus={ user.status } updateUserStatus={ setUserStatus } />
 
             <DescriptionItem title="The first name" content={ user.firstName } />
             <DescriptionItem title="The second name" content={ user.secondName } />

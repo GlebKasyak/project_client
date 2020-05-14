@@ -1,6 +1,8 @@
 @import "../../assets/styles/variables";
 
 .profile {
+  $self: &;
+
   max-width: 350px!important;
   margin: auto;
 
@@ -10,14 +12,24 @@
     margin-bottom: $default-margin;
   }
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+
+    #{ $self }__status {
+      display: flex;
+      align-self: center;
+    }
+  }
+
   &__avatar {
 
-    .profile-avatar-wrapper {
+    #{ $self }-avatar-wrapper {
       width: 150px;
       height: 150px;
     }
 
-    .profile-avatar {
+    #{ $self }-avatar {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -25,6 +37,7 @@
   }
 
   @media (max-width: 767px) {
+
     &__section {
       font-size: $font-size!important;
       margin-bottom: 0.5rem!important;
@@ -32,7 +45,7 @@
 
     &__avatar {
 
-      .profile-avatar-wrapper {
+      #{ $self }-avatar-wrapper {
         width: 100px;
         height: 100px;
       }

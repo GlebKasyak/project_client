@@ -13,7 +13,7 @@ import { UserSelectors } from "./store/selectors";
 import { Auth, DoNotAuth } from "./hoc";
 import { storageKeys } from "./assets/constants/commons";
 import { urls } from "./assets/constants";
-import { getAuthUserData } from "./store/actions/user.action";
+import { getAuthUserData, userActions } from "./store/actions/user.action";
 import "./assets/styles/app.scss";
 
 type MapStateToPropsType = {
@@ -22,19 +22,24 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    getAuthUserData: () => void
+    getAuthUserData: () => void,
+    getOnlineStatus: (data: boolean) => void
 }
 
 type PropType = MapStateToPropsType & MapDispatchToPropsType;
 
 
-let App: FC<PropType> = ({ isAuth, userId, getAuthUserData }) => {
+let App: FC<PropType> = ({ isAuth, userId, getAuthUserData, getOnlineStatus }) => {
   useEffect(() => {
     const authData = localStorage.getItem(storageKeys.isAuth);
 
     if(!!authData && JSON.parse(authData)) getAuthUserData();
-    if(isAuth) socket.setOnlineStatus({ userId, isOnline: true });
-  }, [isAuth, getAuthUserData, userId]);
+
+    if(isAuth) {
+        socket.setOnlineStatus({ userId, isOnline: true });
+        socket.getOnlineStatus(getOnlineStatus);
+    }
+  }, [isAuth, getAuthUserData, userId, getOnlineStatus]);
 
   return (
       <Beforeunload onBeforeunload={ () => userId && socket.setOnlineStatus({ userId, isOnline: false }) } >
@@ -64,5 +69,5 @@ const mapStateToProps = (state: AppStateType) => ({
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(
     mapStateToProps,
-    { getAuthUserData })
+    { getAuthUserData, getOnlineStatus: userActions.getOnlineStatusAC })
 (App);
