@@ -18,6 +18,8 @@ export const userActions = {
     removeUserAC: () => ({ type: userTypes.REMOVE_USER } as const),
     searchUserByEmailAC: (payload: Array<IUser>) => ({ type: userTypes.SEARCH_USER_BY_EMAIL, payload } as const),
     clearUsersListAC: () => ({ type: userTypes.CLEAR_USERS_LIST } as const),
+    getOnlineStatusAC: (payload: boolean) => ({ type: userTypes.GET_ONLINE_STATUS, payload } as const),
+    setUserStatusAC: (payload: string) => ({ type: userTypes.SET_USER_STATUS, payload } as const),
 };
 
 
@@ -105,3 +107,10 @@ export const searchUserByEmail = (value: string, userId: string): ThunkActionTyp
        return err;
    }
 };
+
+export const setUserStatus = (newStatus: string): ThunkActionType<void> => async dispatch => {
+    const response = await UserAPI.setUserStatus(newStatus);
+
+    const { success, status } = response.data;
+    if(success) dispatch(userActions.setUserStatusAC(status.status))
+}

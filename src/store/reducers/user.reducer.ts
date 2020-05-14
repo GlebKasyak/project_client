@@ -15,7 +15,8 @@ const initialState: UserState = {
         _id: "",
         createdAt: "",
         isAuth: false,
-        isOnline: false
+        isOnline: false,
+        status: ""
     },
     users: [],
 };
@@ -36,10 +37,7 @@ const reducer: Reducer<UserState, ActionsTypes> = (state = initialState, action:
         case userTypes.LOGOUT_USER:
             return {
                 ...state,
-                user: {
-                    ...initialState.user,
-                    isAuth: false
-                }
+                user: { ...initialState.user, isAuth: false }
             };
         case userTypes.GET_USERS:
             return {
@@ -63,6 +61,16 @@ const reducer: Reducer<UserState, ActionsTypes> = (state = initialState, action:
             };
         case userTypes.CLEAR_USERS_LIST:
             return { ...state, users: [] };
+        case userTypes.GET_ONLINE_STATUS:
+            return {
+                ...state,
+                user: { ...state.user, isOnline: action.payload }
+            };
+        case userTypes.SET_USER_STATUS:
+            return {
+                ...state,
+                user: { ...state.user, status: action.payload }
+            }
         default:
             exhaustiveCheck(action);
             return state;
