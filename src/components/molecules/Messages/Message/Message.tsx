@@ -34,10 +34,10 @@ const Message: FC<PropsType> = (
 
     return (
         <div
-            className={ cn(`message mt-1 ${ message.message }`, { "message--self": self }) }
+            className={ cn(`message mt-1 ${ message.type }`, { "message--self": self }) }
             ref={ scrollToRef }
         >
-            <div className="message__inside-wrapper">
+            <div className="message__inside-wrapper" >
                 <time className="message__time">{ getTimeMessage(createdAt!) }</time>
                 <p className="message__author-name">
                     { name }

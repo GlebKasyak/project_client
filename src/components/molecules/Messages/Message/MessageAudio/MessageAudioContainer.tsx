@@ -20,24 +20,32 @@ const MessageAudioContainer: FC<Props> = ({ audio }) => {
     };
 
     useEffect(() => {
+        let clearProgress: NodeJS.Timeout;
+
         if(!!audioElem.current) {
-            audioElem.current.addEventListener("playing", () => setIsPlaying(true));
+            audioElem.current.addEventListener("playing", () => setIsPlaying(true), false);
 
             audioElem.current.addEventListener("ended", () => {
                 setIsPlaying(false);
-                setProgress(0);
-                setCurrentTime(0);
-            });
 
-            audioElem.current.addEventListener("pause", () => setIsPlaying(false));
+                clearProgress = setTimeout(() => {
+                   setProgress(0);
+                   setCurrentTime(0);
+                }, 500)
+            }, false);
+
+            audioElem.current.addEventListener("pause", () => setIsPlaying(false), false);
 
             audioElem.current.addEventListener("timeupdate", () => {
                 const duration = audioElem.current && (audioElem.current.duration || 0);
                 setCurrentTime(audioElem.current!.currentTime);
                 setProgress(((audioElem.current!.currentTime / duration!) * 100) + (duration! * 0.5))
             })
+
         }
-    }, [audioElem]);
+
+        return () => clearTimeout(clearProgress);
+    }, []);
 
     return <MessageAudio
         audio={ audio }

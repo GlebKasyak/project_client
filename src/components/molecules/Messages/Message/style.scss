@@ -64,7 +64,8 @@
     }
 
     #{ $self }__box--audio {
-      background: rgba(24, 144, 255, 0.6);
+      background: white;
+      border: 1px solid $blue;
       border-radius: 0.938rem;
     }
 
@@ -95,6 +96,11 @@
       #{ $self }__time {
         right: auto;
       }
+
+      #{ $self }__box--audio {
+        border: none;
+        background: rgba(24, 144, 255, 0.6);
+      }
     }
 
     #{ $self }__message-status {
@@ -110,6 +116,10 @@
 
   @media (max-width: 575px) {
     padding: 0 1rem;
+
+    #{ $self }__inside-wrapper {
+      max-width: 80%;
+    }
 
     #{ $self }--self {
 
