@@ -29,4 +29,7 @@ export class UserAPI {
 
     static searchUserByEmail = (value: string, userId: string) =>
         axios.post("/users/search", { value, userId });
+
+    static setUserStatus = (status: string) =>
+        axios.post("/users/user-status", { status });
 }
