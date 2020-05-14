@@ -16,6 +16,8 @@ export interface IUser extends IDbDocumentType{
     status: string
 }
 
+export type ChangedUserInfoType = Pick<IUser, "firstName" | "secondName">;
+
 export type LoginDataType = {
     email: string,
     password: string,

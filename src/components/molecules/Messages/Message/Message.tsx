@@ -6,9 +6,9 @@ import MessageAudioContainer from "./MessageAudio/MessageAudioContainer";
 
 import icons from "../../../../shared/icons";
 import { ENV } from "../../../../assets/constants";
-import showConfirm from "../../../../shared/showConfirm";
 import { IMessage, MessageTypes, EnumTypeOfMessage } from "../../../../interfaces/dialog";
 import { getTimeMessage } from "../../../../shared/helpres";
+import showConfirm from "../../../../shared/showConfirm";
 import "./style.scss";
 
 type PropsType = {
@@ -75,7 +75,6 @@ const setWrapperForFile = (type: MessageTypes, message: string) => {
         case EnumTypeOfMessage.image:
             return <MessageImage message={ message } type={ type } />
         case EnumTypeOfMessage.audio:
-            // return <audio src={`${ ENV.SERVER_URL }/${ message }`} className="message__audio" controls />;
             return <MessageAudioContainer audio={ `${ ENV.SERVER_URL }/${ message }` } />;
         case EnumTypeOfMessage.text:
             return <p className="message__text">{ message }</p>;
