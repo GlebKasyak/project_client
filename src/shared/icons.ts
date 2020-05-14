@@ -16,7 +16,9 @@ import {
     EnterOutlined,
     AudioTwoTone,
     FileImageTwoTone,
-    PauseOutlined
+    PauseOutlined,
+    SmileOutlined,
+    CloseOutlined
 
 } from "@ant-design/icons";
 
@@ -38,5 +40,7 @@ export default {
     EnterOutlined,
     AudioTwoTone,
     FileImageTwoTone,
-    PauseOutlined
+    PauseOutlined,
+    SmileOutlined,
+    CloseOutlined
 };
