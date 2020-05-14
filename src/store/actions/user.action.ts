@@ -7,7 +7,7 @@ import { storageKeys } from "../../assets/constants/commons";
 import { TypesFileEnum } from "../../assets/constants/api.contsnts";
 
 import { ResponseType, ScrollDataType } from "../../interfaces/common";
-import { IUser, LoginDataType } from "../../interfaces/user";
+import { IUser, LoginDataType, ChangedUserInfoType } from "../../interfaces/user";
 
 
 export const userActions = {
@@ -20,6 +20,7 @@ export const userActions = {
     clearUsersListAC: () => ({ type: userTypes.CLEAR_USERS_LIST } as const),
     getOnlineStatusAC: (payload: boolean) => ({ type: userTypes.GET_ONLINE_STATUS, payload } as const),
     setUserStatusAC: (payload: string) => ({ type: userTypes.SET_USER_STATUS, payload } as const),
+    changeUserInfoAC: (payload: ChangedUserInfoType) => ({ type: userTypes.CHANGE_USER_INFO, payload } as const),
 };
 
 
@@ -113,4 +114,11 @@ export const setUserStatus = (newStatus: string): ThunkActionType<void> => async
 
     const { success, status } = response.data;
     if(success) dispatch(userActions.setUserStatusAC(status.status))
+}
+
+export const changeUserInfo = (data: ChangedUserInfoType): ThunkActionType<void> => async dispatch => {
+    const response = await UserAPI.changeUserInfo(data);
+
+    const { success, newData } = response.data;
+    if(success) dispatch(userActions.changeUserInfoAC(newData))
 }

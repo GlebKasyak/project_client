@@ -70,7 +70,12 @@ const reducer: Reducer<UserState, ActionsTypes> = (state = initialState, action:
             return {
                 ...state,
                 user: { ...state.user, status: action.payload }
-            }
+            };
+        case userTypes.CHANGE_USER_INFO:
+            return {
+                ...state,
+                user: { ...state.user, ...action.payload }
+            };
         default:
             exhaustiveCheck(action);
             return state;
