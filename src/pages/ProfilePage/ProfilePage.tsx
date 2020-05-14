@@ -1,11 +1,13 @@
 import React, { FC } from "react";
-import { Divider, Col, Row, Typography, Button } from "antd";
+import { Divider, Col, Row, Typography, Button, Tooltip } from "antd";
 
 import { DescriptionItem, UploadButton, ErrorMessage } from "../../components";
 import ProfileStatusContainer from "./ProfileStatus/ProfileStatusContainer";
+import ProfileEditFormContainer from "./ProfileEditForm/ProfileEditFormContainer";
 
-import { Handlers } from "../../interfaces/common";
-import { IUser } from "../../interfaces/user";
+import icons from "../../shared/icons";
+import { Handlers, SetStateType } from "../../interfaces/common";
+import { IUser, ChangedUserInfoType } from "../../interfaces/user";
 import { ENV } from "../../assets/constants";
 import showConfirm from "../../shared/showConfirm";
 import { timeFromNow } from "../../shared/helpres";
@@ -16,15 +18,33 @@ type PropsType = {
     removeUser: () => void,
     onUploadAvatar: Handlers.ChangeType,
     setUserStatus: (status: string) => void
-    err: string
+    err: string,
+    setEditMode: SetStateType<boolean>,
+    editMode: boolean,
+    changeUserInfo: (data: ChangedUserInfoType) => void
 }
 
-const ProfilePage: FC<PropsType> = ({ user, removeUser, onUploadAvatar, setUserStatus, err }) => (
+const ProfilePage: FC<PropsType> = (
+    {
+        user,
+        removeUser,
+        onUploadAvatar,
+        setUserStatus,
+        err,
+        setEditMode,
+        editMode,
+        changeUserInfo
+    }) => (
     <>
         { !!err && <ErrorMessage text={ err } /> }
         <div className="profile container">
             <div className="profile__header" >
-                <Typography.Title level={4} >User Profile</Typography.Title>
+                <Typography.Title level={4} className="profile__title" >
+                    <Tooltip title="Edit profile" >
+                        <icons.EditOutlined className="profile__edit-profile" onClick={ () => setEditMode(true) } />
+                    </Tooltip>
+                    User Profile
+                </Typography.Title>
                 <span className="profile__status" >{ user.isOnline ? "online" : "offline" }</span>
             </div>
             <ProfileStatusContainer userStatus={ user.status } updateUserStatus={ setUserStatus } />
@@ -63,6 +83,13 @@ const ProfilePage: FC<PropsType> = ({ user, removeUser, onUploadAvatar, setUserS
             >
                 Remove account
             </Button>
+            { editMode &&
+                <ProfileEditFormContainer
+                    editMode={ editMode }
+                    setEditMode={ setEditMode }
+                    changeUserInfo={ changeUserInfo }
+                />
+            }
         </div>
     </>
 )
