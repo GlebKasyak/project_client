@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { TypesFileEnum } from "../assets/constants/api.contsnts";
 import { ScrollDataType } from "../interfaces/common";
-import { LoginDataType, RegisterDataType } from "../interfaces/user";
+import { LoginDataType, RegisterDataType, ChangedUserInfoType } from "../interfaces/user";
 
 export class UserAPI {
     static login = (data: LoginDataType) => axios.post("/users/login", data);
@@ -32,4 +32,7 @@ export class UserAPI {
 
     static setUserStatus = (status: string) =>
         axios.post("/users/user-status", { status });
+
+    static changeUserInfo = (data: ChangedUserInfoType) =>
+        axios.post("/users/new-user-data", data)
 }
