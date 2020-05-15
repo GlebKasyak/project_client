@@ -4,3 +4,4 @@ export { default as UsersPage } from "./UsersPage/UsersPageContainer";
 export { default as DialogsPage } from "./DialogsPage/DialogsPageContainer";
 export { default as ChatPage } from "./ChatPage/ChatPageContainer";
 export { default as ProfilePage } from "./ProfilePage/ProfilePageContainer";
+export { default as UserInfoPage } from "./UserInfoPage/UserInfoPage";

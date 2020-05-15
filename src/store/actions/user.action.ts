@@ -76,7 +76,7 @@ export const uploadAvatar = (type: TypesFileEnum.avatar, file: File): ThunkActio
 
        const { success, avatar } = response.data;
        if(success) {
-           dispatch(userActions.uploadAvatarAC(avatar!));
+           dispatch(userActions.uploadAvatarAC(avatar.avatarPath!));
            return success;
        }
    } catch (err) {

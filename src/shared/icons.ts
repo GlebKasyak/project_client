@@ -18,7 +18,8 @@ import {
     FileImageTwoTone,
     PauseOutlined,
     SmileOutlined,
-    CloseOutlined
+    CloseOutlined,
+    EyeOutlined
 
 } from "@ant-design/icons";
 
@@ -42,5 +43,6 @@ export default {
     FileImageTwoTone,
     PauseOutlined,
     SmileOutlined,
-    CloseOutlined
+    CloseOutlined,
+    EyeOutlined
 };

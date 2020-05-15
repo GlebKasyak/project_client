@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Col, Tooltip } from "antd";
+import { Link } from "react-router-dom";
 
 import UserAvatar from "../../atoms/UserAvatar/UserAvatar";
 
@@ -17,11 +18,16 @@ const UserCard: React.FC<PropsType> = ({ user, onClick }) => (
         <Card
             className="user-card__card"
             actions={[
+                <Tooltip title="View profile" >
+                    <Link to={ `/user-info?userId=${ user._id }` } >
+                        <div>View profile <icons.EyeOutlined /></div>
+                    </Link>
+                </Tooltip>,
                 <Tooltip title="Create dialog" >
-                 <div onClick={ onClick.bind(null, user._id) } >
-                     <span>Create dialog </span>
-                     <icons.MessageOutlined key="message"  />
-                 </div>
+                    <div onClick={ onClick.bind(null, user._id) } >
+                         <span>Create dialog </span>
+                         <icons.MessageOutlined key="message"  />
+                    </div>
                 </Tooltip>
             ]}
         >
