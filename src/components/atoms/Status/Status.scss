@@ -1,0 +1,26 @@
+@import "../../../assets/styles/variables";
+
+.status {
+  color: #bfbfbf;
+  display: inline-block;
+
+  &::before {
+    border: 0.1rem solid $white;
+    display: block;
+    content: "";
+    width: 0.65rem;
+    height: 0.65rem;
+    background: #D3D3D3;
+    border-radius: 50%;
+    position: absolute;
+    right: 0.15rem;
+    bottom: 0.125rem;
+  }
+
+  &--online {
+
+    &::before {
+      background: $green;
+    }
+  }
+}

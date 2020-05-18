@@ -1,0 +1,128 @@
+@import "../../assets/styles/variables";
+
+.chat-page {
+  $self: &;
+  margin: auto;
+  border: solid 0.125rem $lite-grey;
+
+  max-width: 700px!important;
+  width: 100%;
+  position: relative;
+
+  &__window {
+    @extend %display-flex-center;
+    height: calc(100vh - 171px)!important;
+
+    .infinite-container {
+      position: relative;
+      max-height: 75%;
+      height: 100%;
+      width: 100%;
+      overflow-y: auto;
+    }
+
+    #{ $self }__header {
+      border-width: 0.063rem 0 0.063rem;
+      border-style: solid none solid;
+      border-color: $lite-grey;
+      box-shadow: 0 5px 3px $lite-grey;
+
+      .ant-page-header-heading-title {
+        font-size: 1rem;
+        color: rgba(0, 0, 0, .45);
+      }
+    }
+  }
+
+
+  &__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $white;
+    height: 3.125rem;
+    border-top: 0.063rem solid $lite-grey;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+
+    #{ $self }__smile-btn {
+      @extend %display-flex-center;
+
+      font-size: 1.375rem;
+      position: absolute;
+      right: 0.5rem;
+      z-index: 2;
+    }
+
+    #{ $self }__emoji-picker {
+      position: absolute;
+      z-index: 1;
+      bottom: 60px;
+      left: 0;
+    }
+
+    #{ $self }__input-field .ant-input {
+      padding-right: 2.5rem;
+    }
+
+    #{ $self }__audio-btn {
+      margin: 0 0.75rem;
+    }
+
+    .form-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #{ $self }__enter-btn {
+      max-width: 2rem;
+
+      @extend %display-flex-center;
+    }
+
+    #{ $self }__alert-err {
+      position: absolute;
+      bottom: -2.5rem;
+      width: 100%;
+    }
+  }
+
+  @media(max-width: 767px) {
+
+    &__form {
+
+      #{ $self }__emoji-picker {
+        bottom: 100px;
+        left: auto;
+      }
+    }
+  }
+
+  @media(max-width: 575px) {
+
+      &__form {
+        #{ $self }__emoji-picker {
+
+          .emoji-mart {
+            width: 250px!important;
+          }
+        }
+      }
+  }
+
+  @media (max-width: 400px) {
+
+    &__form {
+
+      #{ $self }__audio-btn {
+        margin: 0 0.25rem;
+      }
+    }
+  }
+}
+
+

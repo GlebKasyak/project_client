@@ -1,0 +1,117 @@
+@import "../../../../../assets/styles/variables";
+
+.message {
+  $self: &;
+
+  &__box--audio {
+    max-width: 350px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    #{ $self }__audio {
+
+      audio {
+        display: none;
+      }
+
+      &-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      &-btn {
+
+        button {
+          border: 0;
+          background: $blue;
+          color: $white;
+          width: 1.875rem;
+          height: 1.875rem;
+          border-radius: 50%;
+        }
+      }
+
+      &-wave img {
+        max-width: 110px;
+        width: 100%;
+        filter: invert(36%) sepia(85%) saturate(1707%) hue-rotate(196deg) brightness(107%) contrast(101%);
+
+      }
+
+      &-duration {
+        color: $blue;
+        font-weight: 500;
+        opacity: 0.8;
+        font-size: 0.75rem;
+        position: relative;
+        right: 0.5rem;
+      }
+
+      &-progress {
+        background-color: $lite-grey;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        transition: width 0.5s linear;
+      }
+    }
+  }
+
+  &--self {
+
+    #{ $self }__box--audio {
+
+      #{ $self }__audio {
+
+        &-btn {
+
+          button {
+            background: $white;
+            color: $black;
+          }
+        }
+
+        &-wave img {
+          filter: none;
+        }
+
+        &-duration {
+          color: $white;
+        }
+
+        &-progress {
+          background-color: $blue;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 400px) {
+    &__box--audio {
+      height: 1.5rem;
+
+      #{ $self }__audio {
+
+        &-btn {
+
+          button {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+
+        &-wave img {
+          max-width: 60px;
+        }
+
+        &-duration {
+          font-size: 0.6rem;
+        }
+      }
+    }
+  }
+}

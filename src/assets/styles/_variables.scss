@@ -1,0 +1,18 @@
+$default-margin: 1rem;
+$default-padding: 1rem;
+$font-size: 1rem;
+
+$black: #001529;
+$blue: #1890ff;
+$white: #fff;
+$lite-grey: #edeef0;
+$green : #00C980;
+$red: #ff4d4f;
+$light-blue: #A6BDF0;
+
+
+%display-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
