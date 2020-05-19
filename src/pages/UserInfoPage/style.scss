@@ -1,5 +1,79 @@
 @import "../../assets/styles/variables";
 
 .user-info-page {
+  $self: &;
+
+  display: flex;
+
+ .left-block {
+
+   #{ $self }__card {
+     width: 240px;
+
+     #{ $self }__card-avatar {
+       height: 300px;
+       object-fit: cover;
+     }
+   }
+
+   #{ $self }__btn {
+     margin-top: $default-margin / 2;
+   }
+
+   #{ $self }__btn--is-friend {
+     background: $red!important;
+     color: white!important;
+   }
+
+   #{ $self }__friends-wrapper {
+     width: 240px;
+     padding: 0.5rem;
+     margin-top: $default-margin;
+     border: 1px solid $lite-grey;
+     display: flex;
+     align-items: center;
+     justify-content: flex-start;
+     font-size: 0.875rem;
+     color: $black;
+     height: 2rem;
+     cursor: pointer;
+
+     #{ $self }__friends {
+       color: rgba(0, 0, 0, 0.5);
+       padding-left: 0.5rem;
+       background-color: $white;
+     }
+   }
+
+   #{ $self }__friends-wrapper--disabled {
+     pointer-events: none;
+   }
+ }
+
+  .right-block {
+    margin-left: $default-margin;
+    border: 1px solid $lite-grey;
+    width: 100%;
+    background-color: $white;
+
+    #{ $self }__status {
+      display: flex;
+      justify-content: flex-end;
+      padding: $default-padding;
+      width: 100%;
+
+      border-bottom: 1px solid $lite-grey;
+    }
+
+    #{ $self }__status--isHave {
+      justify-content: space-between;
+    }
+  }
+
+  .right-block:hover {
+    border-color: rgba(0, 0, 0, 0.09);
+    -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  }
 
 }
