@@ -10,8 +10,14 @@ export enum UsersEndPoints {
     search = "/users/search",
     status = "/users/user-status",
     newUserData = "/users/new-user-data",
-    userInfo = "/users/user-info"
+    userInfo = "/users/user-info",
+}
 
+export enum FriendsEndPoints {
+    addNewFriend = "/friend/new-friend",
+    removeFriend = "/friend/remove-friend",
+    getFriends = "/friend/friends",
+    search = "/friend/search"
 }
 
 export enum DialogEndPoints {
