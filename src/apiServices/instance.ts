@@ -4,7 +4,7 @@ import { History } from "history";
 import { userActions } from "../store/actions/user.action";
 import { StoreType } from "../store";
 import { storageKeys } from "../assets/constants/commons";
-import { ENV, pageUrls } from "../assets/constants";
+import { ENV, PageUrls } from "../assets/constants";
 
 export default (store: StoreType, history: History) => {
     axios.defaults.baseURL = `${ ENV.SERVER_URL }/api/`;
@@ -20,7 +20,7 @@ export default (store: StoreType, history: History) => {
         ({ response }) => {
             switch (response.status) {
                 case 404:
-                    history.push(pageUrls.page404);
+                    history.push(PageUrls.page404);
                     return Promise.reject(response.data);
                 case 401:
                     if(!localStorage.getItem(storageKeys.isAuth)) {

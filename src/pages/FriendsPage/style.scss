@@ -1,0 +1,40 @@
+@import "../../assets/styles/variables";
+
+.friends-page {
+  $self: &;
+
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
+  border: 0.063rem solid $lite-grey;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.35rem;
+    border-bottom: 0.063rem solid $lite-grey;
+
+    &-btn {
+      margin-right: 0.35rem;
+    }
+
+    &-btn--isActive {
+      background: $blue!important;
+      color: $white!important;
+    }
+  }
+
+  @media (max-width: 575px) {
+    &__header {
+      flex-direction: column;
+
+      #{ $self }__buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: $default-margin / 2;
+      }
+    }
+  }
+
+}
+
