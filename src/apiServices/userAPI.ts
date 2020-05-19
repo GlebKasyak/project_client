@@ -4,7 +4,7 @@ import { TypesFileEnum, UsersEndPoints } from "../assets/constants/api.contsnts"
 import { ScrollDataType } from "../interfaces/common";
 import { LoginDataType, RegisterDataType, ChangedUserInfoType } from "../interfaces/user";
 
-export class UserAPI {
+class UserAPI {
     static login = (data: LoginDataType) => axios.post(UsersEndPoints.login, data);
 
     static me = () => axios.get(UsersEndPoints.me);
@@ -37,5 +37,7 @@ export class UserAPI {
         axios.post(UsersEndPoints.newUserData, data);
 
     static getUserInfo = (userId: string) =>
-        axios.get(`${ UsersEndPoints.userInfo }/${ userId }`)
+        axios.get(`${ UsersEndPoints.userInfo }/${ userId }`);
 }
+
+export default UserAPI;

@@ -4,7 +4,7 @@ import { TypesFileEnum, DialogEndPoints } from "../assets/constants/api.contsnts
 import { ScrollDataType } from "../interfaces/common";
 import { CreateDialogDataType } from "../interfaces/dialog";
 
-export class DialogAPI {
+class DialogAPI {
     static createDialog = (data: CreateDialogDataType) => axios.post(DialogEndPoints.create, data);
 
     static getDialogsById = (data: ScrollDataType) =>
@@ -23,5 +23,6 @@ export class DialogAPI {
             headers: { "Content-Type": "multipart/form-data" }
         });
     };
-
 }
+
+export default DialogAPI;
