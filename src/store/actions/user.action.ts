@@ -1,7 +1,7 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import * as userTypes from "../types/userTypes";
-import { UserAPI } from "../../apiServices/userAPI";
+import { UserAPI } from "../../apiServices";
 import { AppStateType, InferActionsTypes } from "../reducers";
 import { storageKeys } from "../../assets/constants/commons";
 import { TypesFileEnum } from "../../assets/constants/api.contsnts";
@@ -30,18 +30,18 @@ export type ThunkDispatchUsersType = ThunkDispatch<AppStateType, unknown, InferA
 
 export const getAuthUserData = (): ThunkActionType<void> => async dispatch => {
     const response = await UserAPI.me();
-    const { success, user } = response.data;
+    const { success, data } = response.data;
 
-    if(success) dispatch(userActions.loginAC(user!));
+    if(success) dispatch(userActions.loginAC(data!));
 };
 
-export const login = (data: LoginDataType): ThunkActionType<ResponseType> => async dispatch => {
+export const login = (newData: LoginDataType): ThunkActionType<ResponseType> => async dispatch => {
     try {
-        const response = await UserAPI.login(data);
+        const response = await UserAPI.login(newData);
 
-        const { success, token, message } = response.data;
+        const { success, data, message } = response.data;
         if(success) {
-            localStorage.setItem(storageKeys.token, JSON.stringify({ token }));
+            localStorage.setItem(storageKeys.token, JSON.stringify({ token: data }));
             dispatch(getAuthUserData());
 
             return { success, message };
@@ -61,22 +61,22 @@ export const logout = (): ThunkActionType<void> => async dispatch => {
     }
 };
 
-export const getUsers = (data: ScrollDataType): ThunkActionType<Array<IUser>> => async dispatch => {
-    const response = await UserAPI.getUsers(data);
+export const getUsers = (newData: ScrollDataType): ThunkActionType<Array<IUser>> => async dispatch => {
+    const response = await UserAPI.getUsers(newData);
 
-    const { success, users } = response.data;
-    if(success) dispatch(userActions.getUsersAC(users));
+    const { success, data } = response.data;
+    if(success) dispatch(userActions.getUsersAC(data));
 
-    return users;
+    return data;
 };
 
 export const uploadAvatar = (type: TypesFileEnum.avatar, file: File): ThunkActionType<boolean> => async dispatch => {
    try {
        const response = await UserAPI.uploadAvatar(type, file);
 
-       const { success, avatar } = response.data;
+       const { success, data } = response.data;
        if(success) {
-           dispatch(userActions.uploadAvatarAC(avatar.avatarPath!));
+           dispatch(userActions.uploadAvatarAC(data));
            return success;
        }
    } catch (err) {
@@ -97,9 +97,9 @@ export const searchUserByEmail = (value: string, userId: string): ThunkActionTyp
    try {
        const response = await UserAPI.searchUserByEmail(value, userId);
 
-       const { success, user, message } = response.data;
+       const { success, data, message } = response.data;
        if(success) {
-           dispatch(userActions.searchUserByEmailAC([user]));
+           dispatch(userActions.searchUserByEmailAC([data]));
            return { success, message };
        }
 
@@ -112,13 +112,13 @@ export const searchUserByEmail = (value: string, userId: string): ThunkActionTyp
 export const setUserStatus = (newStatus: string): ThunkActionType<void> => async dispatch => {
     const response = await UserAPI.setUserStatus(newStatus);
 
-    const { success, status } = response.data;
-    if(success) dispatch(userActions.setUserStatusAC(status.status))
+    const { success, data } = response.data;
+    if(success) dispatch(userActions.setUserStatusAC(data.status))
 }
 
-export const changeUserInfo = (data: ChangedUserInfoType): ThunkActionType<void> => async dispatch => {
-    const response = await UserAPI.changeUserInfo(data);
+export const changeUserInfo = (newData: ChangedUserInfoType): ThunkActionType<void> => async dispatch => {
+    const response = await UserAPI.changeUserInfo(newData);
 
-    const { success, newData } = response.data;
-    if(success) dispatch(userActions.changeUserInfoAC(newData))
+    const { success, data } = response.data;
+    if(success) dispatch(userActions.changeUserInfoAC(data))
 }

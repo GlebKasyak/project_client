@@ -12,7 +12,7 @@ import { AppStateType } from "../../store/reducers";
 import socket from "../../socketServices";
 import { TypesFileEnum } from "../../assets/constants/api.contsnts";
 import { socketEvents } from "../../assets/constants";
-import { DialogAPI } from "../../apiServices/dialogAPI";
+import { DialogAPI } from "../../apiServices";
 import { Handlers } from "../../interfaces/common";
 import { IUser } from "../../interfaces/user";
 import { IMessage, MessageTypes, EnumTypeOfMessage } from "../../interfaces/dialog";

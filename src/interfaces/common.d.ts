@@ -40,6 +40,7 @@ export interface IDbDocumentType {
 export type ScrollDataType = {
     userId: string,
     limit: number,
-    page: number
+    page: number,
+    filter?: string
 }
 

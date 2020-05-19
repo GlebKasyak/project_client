@@ -1,7 +1,7 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import * as dialogTypes from "../types/dialogTypes";
-import { DialogAPI } from "../../apiServices/dialogAPI";
+import { DialogAPI } from "../../apiServices";
 import { AppStateType, InferActionsTypes } from "../reducers";
 
 import { ResponseType, ScrollDataType } from "../../interfaces/common";
@@ -18,14 +18,14 @@ export const dialogActions = {
 type ThunkActionType<T> = ThunkAction<Promise<T>, AppStateType, unknown, InferActionsTypes<typeof dialogActions>>;
 export type ThunkDispatchDialogsType = ThunkDispatch<AppStateType, unknown, InferActionsTypes<typeof dialogActions>>;
 
-export const getDialogsById = (data: ScrollDataType): ThunkActionType<IResponseDialogsData> => async dispatch => {
+export const getDialogsById = (scrollData: ScrollDataType): ThunkActionType<IResponseDialogsData> => async dispatch => {
     try {
-        const response = await DialogAPI.getDialogsById(data);
+        const response = await DialogAPI.getDialogsById(scrollData);
 
-        const { success, dialogs } = response.data;
+        const { success, data } = response.data;
         if(success) {
-            dispatch(dialogActions.getDialogsByIdAC(dialogs));
-            return { success, dialogs };
+            dispatch(dialogActions.getDialogsByIdAC(data));
+            return { success, dialogs: data };
         }
     } catch (err) {
         return err.response.data;
@@ -42,10 +42,10 @@ export const searchDialogs = (value: string, userId: string): ThunkActionType<Re
    try {
        const response = await DialogAPI.searchDialogs(value, userId);
 
-       const { success, dialogs, message } = response.data;
+       const { success, data, message } = response.data;
        if(success) {
            dispatch(dialogActions.clearDialogListAC());
-           dispatch(dialogActions.searchDialogsAC(dialogs));
+           dispatch(dialogActions.searchDialogsAC(data));
 
            return { success, message }
        }

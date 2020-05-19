@@ -12,6 +12,7 @@ export { default as DescriptionItem } from "./atoms/DescriptionItem/DescriptionI
 export { default as UploadButton } from "./atoms/UploadButton/UploadButton";
 export { default as UserAvatar } from "./atoms/UserAvatar/UserAvatar";
 export { default as Status } from "./atoms/Status/Status";
+export { default as StatusText } from "./atoms/StatusText/StatusText";
 
 //molecules
 export { default as InputFormField } from "./molecules/InputFormField/InputFormField";
@@ -20,5 +21,6 @@ export { default as Messages } from "./molecules/Messages/Messages";
 export { default as DialogItem } from "./molecules/DialogItem/DialogItem";
 export { default as Search } from "./molecules/Search/SearchContainer";
 export { default as Mp3Recorder } from "./molecules/Mp3Recorder/Mp3RecorderContainer";
+export { default as UserList } from "./molecules/UserList/UserList";
 
 

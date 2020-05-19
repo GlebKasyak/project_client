@@ -16,7 +16,8 @@ const initialState: UserState = {
         createdAt: "",
         isAuth: false,
         isOnline: false,
-        status: ""
+        status: "",
+        friends: []
     },
     users: [],
 };

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import { Beforeunload } from 'react-beforeunload';
 
-import { Home, UsersPage, DialogsPage, ChatPage, ProfilePage, UserInfoPage, Page404 } from "./pages";
+import { Home, UsersPage, DialogsPage, ChatPage, ProfilePage, UserInfoPage, FriendsPage, Page404 } from "./pages";
 import { NavBar } from "./components";
 import { LoginForm, RegisterForm } from "./modules";
 
@@ -12,7 +12,7 @@ import { AppStateType } from "./store/reducers";
 import { UserSelectors } from "./store/selectors";
 import { Auth, DoNotAuth } from "./hoc";
 import { storageKeys } from "./assets/constants/commons";
-import { pageUrls } from "./assets/constants";
+import { PageUrls } from "./assets/constants";
 import { getAuthUserData, userActions } from "./store/actions/user.action";
 import "./assets/styles/app.scss";
 
@@ -46,17 +46,18 @@ let App: FC<PropType> = ({ isAuth, userId, getAuthUserData, getOnlineStatus }) =
           <div className={"app " + (isAuth ? "app--active" : "app--not-active")} >
             <NavBar />
             <Switch>
-              <Route exact path={ pageUrls.home } component={ DoNotAuth(Home) } />
-              <Route exact path={ pageUrls.users } component={ DoNotAuth(UsersPage) } />
-              <Route exact path={ pageUrls.dialogs } component={ DoNotAuth(DialogsPage) } />
-              <Route exact path={ pageUrls.chat } component={ DoNotAuth(ChatPage) } />
-              <Route exact path={ pageUrls.profile } component={ DoNotAuth(ProfilePage) } />
-              <Route exact path={ pageUrls.userInfo } component={ DoNotAuth(UserInfoPage) } />
+              <Route exact path={ PageUrls.home } component={ DoNotAuth(Home) } />
+              <Route exact path={ PageUrls.users } component={ DoNotAuth(UsersPage) } />
+              <Route exact path={ PageUrls.dialogs } component={ DoNotAuth(DialogsPage) } />
+              <Route exact path={ PageUrls.chat } component={ DoNotAuth(ChatPage) } />
+              <Route exact path={ PageUrls.profile } component={ DoNotAuth(ProfilePage) } />
+              <Route exact path={ PageUrls.userInfo } component={ DoNotAuth(UserInfoPage) } />
+              <Route exact path={ PageUrls.friends } component={ DoNotAuth(FriendsPage) } />
 
-              <Route path={ pageUrls.login } component={ Auth(LoginForm) } />
-              <Route path={ pageUrls.register } component={ Auth(RegisterForm) } />
+              <Route path={ PageUrls.login } component={ Auth(LoginForm) } />
+              <Route path={ PageUrls.register } component={ Auth(RegisterForm) } />
 
-              <Route path={ [pageUrls.page404, "*"] } component={ Page404 } />
+              <Route path={ [PageUrls.page404, "*"] } component={ Page404 } />
             </Switch>
           </div>
       </Beforeunload>

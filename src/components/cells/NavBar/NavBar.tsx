@@ -3,7 +3,7 @@ import { useHistory, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { Menu, Button } from "antd";
 
-import { pageUrls } from "../../../assets/constants";
+import { PageUrls } from "../../../assets/constants";
 import { storageKeys } from "../../../assets/constants/commons";
 import { logout, ThunkDispatchUsersType } from "../../../store/actions/user.action";
 import icons from "../../../shared/icons";
@@ -30,31 +30,31 @@ const NavBar: FC<Props> = ({ dispatch }) => {
                     mode="horizontal"
                     theme="dark"
                 >
-                    <Menu.Item key={ pageUrls.home } className="navbar__item" >
-                        <NavLink exact to={ pageUrls.home } >
+                    <Menu.Item key={ PageUrls.home } className="navbar__item" >
+                        <NavLink exact to={ PageUrls.home } >
                             <icons.HomeOutlined />
                             Home
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key={ pageUrls.users } className="navbar__item" >
-                        <NavLink to={ pageUrls.users } >
+                    <Menu.Item key={ PageUrls.users } className="navbar__item" >
+                        <NavLink to={ PageUrls.users } >
                             <icons.ContactsOutlined />
                             Users
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key={ pageUrls.dialogs } className="navbar__item" >
-                        <NavLink to={ pageUrls.dialogs } >
+                    <Menu.Item key={ PageUrls.dialogs } className="navbar__item" >
+                        <NavLink to={ PageUrls.dialogs } >
                             <icons.MessageOutlined />
                             Dialogs
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key={ pageUrls.profile } className="navbar__item" >
-                        <NavLink to={ pageUrls.profile } >
+                    <Menu.Item key={ PageUrls.profile } className="navbar__item" >
+                        <NavLink to={ PageUrls.profile } >
                             <icons.UserOutlined />
                             Profile
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key={ pageUrls.logout }  >
+                    <Menu.Item key={ PageUrls.logout }  >
                         <Button
                             type="danger"
                             className="w-100 btn"
@@ -74,14 +74,14 @@ const NavBar: FC<Props> = ({ dispatch }) => {
                 mode="horizontal"
                 theme="dark"
             >
-                <Menu.Item key={ pageUrls.login } className="navbar__item" >
-                    <NavLink to={ pageUrls.login }  >
+                <Menu.Item key={ PageUrls.login } className="navbar__item" >
+                    <NavLink to={ PageUrls.login }  >
                         <icons.LoginOutlined />
                         Login
                     </NavLink>
                 </Menu.Item>
-                <Menu.Item key={ pageUrls.register } className="navbar__item" >
-                    <NavLink to={ pageUrls.register } >
+                <Menu.Item key={ PageUrls.register } className="navbar__item" >
+                    <NavLink to={ PageUrls.register } >
                         <icons.SaveOutlined />
                         Register
                     </NavLink>

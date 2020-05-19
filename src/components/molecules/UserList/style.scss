@@ -1,0 +1,10 @@
+@import "../../../assets/styles/variables";
+
+.user-item {
+  padding: 0.5rem 1rem!important;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(166, 189, 240, .13);
+  }
+}

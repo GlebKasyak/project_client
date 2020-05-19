@@ -8,7 +8,7 @@ import { FormComponentProps } from "antd/lib/form";
 import { ErrorMessage, Preloader } from "../../components";
 import RegisterForm from "./RegisterForm";
 
-import { UserAPI } from "../../apiServices/userAPI";
+import { UserAPI } from "../../apiServices";
 import { Handlers } from "../../interfaces/common";
 import { RegisterDataType } from "../../interfaces/user";
 import { getRegisterFieldsWithValidators } from "./registerFormFields";
