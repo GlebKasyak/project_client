@@ -4,6 +4,7 @@
   $self: &;
 
   max-width: 350px!important;
+  width: 100%;
   margin: auto;
 
   &__section {
@@ -16,11 +17,6 @@
     display: flex;
     justify-content: space-between;
 
-    #{ $self }__status {
-      display: flex;
-      align-self: center;
-    }
-
     #{ $self }__title {
       position: relative;
 
@@ -32,6 +28,13 @@
         cursor: pointer;
       }
     }
+  }
+
+  &__friends {
+    display: flex;
+    margin-bottom: 0.5rem;
+    font-size: $font-size;
+    color: $light-blue;
   }
 
   &__avatar {
