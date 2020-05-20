@@ -57,7 +57,7 @@ const UserInfoPage: FC<Props> = ({ selfId, userInfo, isFriend, handleClick }) =>
                     <Link
                         to={ `${ PageUrls.friends }?userId=${ _id }` }
                         className={ cn(
-                            "user-info-page__friends-wrapper",
+                            "user-info-page__friends-wrapper card-hover grey-border ",
                             { "user-info-page__friends-wrapper--disabled": !friends.length })
                         }
                     >
@@ -65,7 +65,7 @@ const UserInfoPage: FC<Props> = ({ selfId, userInfo, isFriend, handleClick }) =>
                         <span className="user-info-page__friends" >{ friends.length }</span>
                     </Link>
                 </div>
-                <div className="right-block" >
+                <div className="right-block card-hover grey-border " >
                     <div className={ cn(
                         "user-info-page__status",
                         { "user-info-page__status--isHave": status })

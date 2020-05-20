@@ -188,7 +188,7 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
     const handleChange: Handlers.ChangeType = ({ target }) => {
         setMessage(target.value);
 
-        socket.socket.emit("typing", {
+        socket.socket.emit(socketEvents.typing, {
             dialogId: queryData.dialogId,
             typingMessage: `<span class="typing">${ user.firstName }</span> is typing`,
             isTyping: !!target.value
@@ -211,7 +211,7 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
 
             setIsSendMessage(true);
             socket.socket.emit(socketEvents.createNewMsg, {
-                    message: message.data.url,
+                    message: message.data.data,
                     type: EnumTypeOfMessage.image,
                     dialog: queryData.dialogId,
                     author: user._id
@@ -226,7 +226,7 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
 
         setIsSendMessage(true);
         socket.socket.emit(socketEvents.createNewMsg, {
-            message: message.data.url,
+            message: message.data.data,
             type: EnumTypeOfMessage.audio,
             dialog: queryData.dialogId,
             author: user._id

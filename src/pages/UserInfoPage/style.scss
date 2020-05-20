@@ -29,7 +29,6 @@
      width: 240px;
      padding: 0.5rem;
      margin-top: $default-margin;
-     border: 1px solid $lite-grey;
      display: flex;
      align-items: center;
      justify-content: flex-start;
@@ -52,7 +51,6 @@
 
   .right-block {
     margin-left: $default-margin;
-    border: 1px solid $lite-grey;
     width: 100%;
     background-color: $white;
 
@@ -62,18 +60,12 @@
       padding: $default-padding;
       width: 100%;
 
-      border-bottom: 1px solid $lite-grey;
+      border-bottom: 0.063rem solid $lite-grey;
     }
 
     #{ $self }__status--isHave {
       justify-content: space-between;
     }
-  }
-
-  .right-block:hover {
-    border-color: rgba(0, 0, 0, 0.09);
-    -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
   }
 
 }

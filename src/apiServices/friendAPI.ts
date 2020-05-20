@@ -1,20 +1,20 @@
 import axios, { CancelToken } from "axios";
 
-import { FriendsEndPoints } from "../assets/constants/api.contsnts";
+import { MainEndpoints } from "../assets/constants/api.contsnts";
 import { ScrollDataType } from "../interfaces/common";
 
 class FriendAPI {
     static addNewFriend = (userId: string) =>
-        axios.get(`${ FriendsEndPoints.addNewFriend }/${ userId }`);
+        axios.get(`${ MainEndpoints.friend }/new-friend/${ userId }`);
 
     static removeFriend = (userId: string) =>
-        axios.get(`${ FriendsEndPoints.removeFriend }/${ userId }`);
+        axios.get(`${ MainEndpoints.friend }/remove-friend/${ userId }`);
 
     static getFriendsById = (data: ScrollDataType, token?: CancelToken) =>
-        axios.get(`${ FriendsEndPoints.getFriends }/${ JSON.stringify(data) }`, { cancelToken: token });
+        axios.get(`${ MainEndpoints.friend }/friends/${ JSON.stringify(data) }`, { cancelToken: token });
 
     static searchFriends = (userId: string, value: string) =>
-        axios.post(`${ FriendsEndPoints.search }`, { userId, value });
+        axios.post(`${ MainEndpoints.friend }/search`, { userId, value });
 }
 
 export default FriendAPI;

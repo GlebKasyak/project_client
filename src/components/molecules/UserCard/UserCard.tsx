@@ -17,7 +17,7 @@ type PropsType = {
 const UserCard: React.FC<PropsType> = ({ user, onClick }) => (
     <Col xs={24} sm={12} lg={8} className="user-card" >
         <Card
-            className="user-card__card"
+            className="user-card__card card-hover"
             actions={[
                 <Tooltip title="View profile" >
                     <Link to={ `${ PageUrls.userInfo }?userId=${ user._id }` } >
