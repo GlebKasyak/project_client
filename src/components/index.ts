@@ -1,5 +1,6 @@
 //cells
 export { default as NavBar } from "./cells/NavBar/NavBar";
+export { default as BlogList } from "./cells/BlogList/BlogListContainer";
 
 //atoms
 export { default as ErrorMessage } from "./atoms/ErrorMessage/ErrorMessage";

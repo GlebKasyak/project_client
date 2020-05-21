@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-import { ENV, socketEvents } from "../assets/constants";
+import { ENV, socketEvents } from "../shared/constants";
 
 type SetUserStatusData = {
    userId: string,

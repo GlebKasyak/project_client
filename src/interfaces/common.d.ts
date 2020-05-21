@@ -45,3 +45,6 @@ export type ScrollDataType = {
     filter?: string
 };
 
+export interface IResponseData<T> extends ResponseType {
+    data: T
+}

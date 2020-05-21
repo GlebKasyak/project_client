@@ -19,7 +19,9 @@ import {
     PauseOutlined,
     SmileOutlined,
     CloseOutlined,
-    EyeOutlined
+    EyeOutlined,
+    LikeOutlined,
+    DislikeOutlined
 
 } from "@ant-design/icons";
 
@@ -44,5 +46,7 @@ export default {
     PauseOutlined,
     SmileOutlined,
     CloseOutlined,
-    EyeOutlined
+    EyeOutlined,
+    LikeOutlined,
+    DislikeOutlined
 };

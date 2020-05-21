@@ -5,7 +5,7 @@ import { History } from "history";
 import { UserAvatar } from "../../index";
 import "./style.scss";
 
-import { PageUrls } from "../../../assets/constants";
+import { PageUrls } from "../../../shared/constants";
 import { IUser } from "../../../interfaces/user";
 
 type Props = {

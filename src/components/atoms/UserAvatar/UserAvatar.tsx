@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Avatar } from "antd";
 
-import { ENV } from "../../../assets/constants";
+import { ENV } from "../../../shared/constants";
 import Status from "../Status/Status";
 import "./style.scss";
 

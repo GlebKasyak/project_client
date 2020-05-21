@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState, useCallback } from "react";
-import axios, { CancelToken } from "axios";
 import { useHistory } from "react-router-dom";
 
 import { Preloader } from "../../components";
@@ -26,33 +25,26 @@ const FriendsPageContainer: FC = () => {
     const [filter, setFilter] = useState<Filters>(Filters.all);
     const [friends, setFriends] = useState<Array<IUser>>([]);
 
-    const fetchData = useCallback(async (userId: string, token: CancelToken) => {
-          try {
-              setIsLoading(true);
+    const fetchData = useCallback(async (userId: string) => {
+        setIsLoading(true);
 
-              const res = await FriendAPI.getFriendsById({ userId, limit, page, filter }, token);
-              const { success, data } = res.data;
+        const res = await FriendAPI.getFriendsById({ userId, limit, page, filter });
+        const { success, data } = res.data;
 
-              if(success) {
-                  setFriends(data);
-                  data.length < limit && setHasMore(false);
-                  setPage(1)
-              }
-              setIsLoading(false);
-          } catch(err) {
-              setIsLoading(false);
-              axios.isCancel(err);
-          }
+        if(success) {
+            setFriends(data);
+            data.length < limit && setHasMore(false);
+            setPage(1)
+        }
+        setIsLoading(false);
     }, [page, filter]);
 
     useEffect(() => {
-        const signal = axios.CancelToken.source();
-
         const { userId } = getDataFromQueryUrl(history.location.search);
-        if(userId && !friends.length && !page) { fetchData(userId, signal.token) };
+        if(userId && !friends.length && !page) {
+            fetchData(userId)
+        };
         setId(userId);
-
-        return () => { signal.cancel("Api is being canceled") };
     }, [history.location.search, fetchData, friends.length, friends, page]);
 
     const handleScroll = async () => {
@@ -80,7 +72,7 @@ const FriendsPageContainer: FC = () => {
         setFriends(res.data.data);
 
         setIsLoading(false);
-    }
+    };
 
     if(isLoading) return <Preloader text="Friends are loading..." />;
 

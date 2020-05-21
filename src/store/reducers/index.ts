@@ -2,10 +2,12 @@ import { combineReducers } from "redux";
 
 import user from "./user.reducer";
 import dialog from "./dialog.reducer";
+import blog from "./blog.reducer";
 
 const rootReducer = combineReducers({
     user,
-    dialog
+    dialog,
+    blog
 });
 
 type RootReducerType = typeof rootReducer;

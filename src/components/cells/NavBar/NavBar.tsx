@@ -3,8 +3,8 @@ import { useHistory, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { Menu, Button } from "antd";
 
-import { PageUrls } from "../../../assets/constants";
-import { storageKeys } from "../../../assets/constants/commons";
+import { PageUrls } from "../../../shared/constants";
+import { storageKeys } from "../../../shared/constants/commons";
 import { logout, ThunkDispatchUsersType } from "../../../store/actions/user.action";
 import icons from "../../../shared/icons";
 import "./style.scss";

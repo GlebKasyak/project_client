@@ -10,8 +10,8 @@ import { UserSelectors } from "../../store/selectors";
 import { AppStateType } from "../../store/reducers";
 
 import socket from "../../socketServices";
-import { TypesFileEnum } from "../../assets/constants/api.contsnts";
-import { socketEvents } from "../../assets/constants";
+import { TypesFileEnum } from "../../shared/constants/api.contsnts";
+import { socketEvents } from "../../shared/constants";
 import { DialogAPI } from "../../apiServices";
 import { Handlers } from "../../interfaces/common";
 import { IUser } from "../../interfaces/user";

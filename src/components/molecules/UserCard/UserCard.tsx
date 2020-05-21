@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import UserAvatar from "../../atoms/UserAvatar/UserAvatar";
 
-import { PageUrls } from "../../../assets/constants";
+import { PageUrls } from "../../../shared/constants";
 import icons from "./../../../shared/icons";
 import { IUser } from "../../../interfaces/user";
 import "./style.scss";

@@ -4,7 +4,7 @@ import { Button, Col, Form } from "antd";
 
 import { InputFormField } from "../../components";
 
-import { formItemLayout, tailFormItemLayout, formWrapperLayout } from "../../assets/constants/formLayout";
+import { formItemLayout, tailFormItemLayout, formWrapperLayout } from "../../shared/constants/formLayout";
 import { Handlers, FieldsType } from "../../interfaces/common";
 
 interface IRegisterForm extends FormComponentProps{

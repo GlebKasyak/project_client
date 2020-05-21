@@ -1,8 +1,8 @@
 import React, { useEffect, ComponentType } from "react";
 import { RouteComponentProps  } from "react-router-dom";
 
-import { PageUrls } from "../assets/constants";
-import { storageKeys } from "../assets/constants/commons";
+import { PageUrls } from "../shared/constants";
+import { storageKeys } from "../shared/constants/commons";
 
 const WithDoNotAuthRedirect = <P extends RouteComponentProps>(Component: ComponentType<P>) => {
      const RedirectComponent: React.FC<P> = props => {
