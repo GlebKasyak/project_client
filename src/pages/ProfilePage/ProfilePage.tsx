@@ -2,40 +2,41 @@ import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { Divider, Col, Row, Typography, Button, Tooltip } from "antd";
 
-import { DescriptionItem, UploadButton, ErrorMessage, StatusText } from "../../components";
+import { DescriptionItem, UploadButton, ErrorMessage, StatusText, BlogList } from "../../components";
 import ProfileStatus from "./ProfileStatus/ProfileStatusContainer";
 import ProfileEditForm from "./ProfileEditForm/ProfileEditFormContainer";
 import ProfileBlogForm from "./ProfileBlogForm/ProfileBlogFormContainer";
+import "./style.scss";
 
 import icons from "../../shared/icons";
 import { Handlers, SetStateType } from "../../interfaces/common";
 import { IUser, ChangedUserInfoType } from "../../interfaces/user";
-import { ENV, PageUrls } from "../../assets/constants";
+import { ENV, PageUrls } from "../../shared/constants";
 import showConfirm from "../../shared/showConfirm";
 import { timeFromNow } from "../../shared/helpres";
-import "./style.scss";
+
 
 type PropsType = {
     user: IUser,
+    err: string,
+    editMode: boolean,
     removeUser: () => void,
     onUploadAvatar: Handlers.ChangeType,
     setUserStatus: (status: string) => void
-    err: string,
     setEditMode: SetStateType<boolean>,
-    editMode: boolean,
-    changeUserInfo: (data: ChangedUserInfoType) => void
+    changeUserInfo: (data: ChangedUserInfoType) => void,
 }
 
 const ProfilePage: FC<PropsType> = (
     {
         user,
+        err,
+        editMode,
         removeUser,
         onUploadAvatar,
         setUserStatus,
-        err,
         setEditMode,
-        editMode,
-        changeUserInfo
+        changeUserInfo,
     }) => (
     <>
         { !!err && <ErrorMessage text={ err } /> }
@@ -103,6 +104,7 @@ const ProfilePage: FC<PropsType> = (
               </div>
                <div className="profile-right">
                    <ProfileBlogForm />
+                   <BlogList selfId={ user._id } userId={ user._id } />
                </div>
            </div>
         </div>

@@ -1,16 +1,31 @@
 import React, { FC, useState } from "react";
+import { connect } from "react-redux";
 import { BaseEmoji } from "emoji-mart";
 
 import ProfileBlogForm from "./ProfileBlogForm";
 
+import { createBlog } from "../../../store/actions/blog.action";
+import { AppStateType } from "../../../store/reducers";
+import { UserSelectors } from "../../../store/selectors";
+import { NewBlogData } from "../../../interfaces/blog";
 import { Handlers } from "../../../interfaces/common";
+
+type MapStateToPropsType = {
+    userId: string
+}
+
+type MapDispatchToProps = {
+    createBlog: (newData: NewBlogData) => void
+}
+
+type Props = MapStateToPropsType & MapDispatchToProps;
 
 const initialFormData = {
     title: "",
     description: ""
 };
 
-const ProfileBlogFormContainer: FC = () => {
+const ProfileBlogFormContainer: FC<Props> = ({ userId, createBlog }) => {
     const [visible, setVisible] = useState(false);
     const [emojiPickerVisible, setShowEmojiPicker] = useState(false);
     const [formData, setFormData] = useState(initialFormData);
@@ -19,9 +34,10 @@ const ProfileBlogFormContainer: FC = () => {
         setFormData({ ...formData, [target.name]: target.value })
     };
 
-    const handleSubmit: Handlers.SubmitType = e => {
+    const handleSubmit: Handlers.SubmitType = async e => {
         e.preventDefault();
 
+        await createBlog({ author: userId, ...formData });
         setFormData(initialFormData);
         setVisible(false);
         setShowEmojiPicker(false);
@@ -43,4 +59,7 @@ const ProfileBlogFormContainer: FC = () => {
     />
 }
 
-export default ProfileBlogFormContainer;
+export default connect<MapStateToPropsType, MapDispatchToProps, {}, AppStateType>(
+    state => ({ userId: UserSelectors.getUserId(state) }),
+    { createBlog }
+)(ProfileBlogFormContainer);

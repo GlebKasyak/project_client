@@ -56,8 +56,8 @@
   }
 
   &-right {
+    position: relative;
     margin-left: $default-margin;
-    display: flex;
     width: 100%;
   }
 
