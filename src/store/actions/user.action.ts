@@ -3,8 +3,8 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import * as userTypes from "../types/userTypes";
 import { UserAPI } from "../../apiServices";
 import { AppStateType, InferActionsTypes } from "../reducers";
-import { storageKeys } from "../../assets/constants/commons";
-import { TypesFileEnum } from "../../assets/constants/api.contsnts";
+import { storageKeys } from "../../shared/constants/commons";
+import { TypesFileEnum } from "../../shared/constants/api.contsnts";
 
 import { ResponseType, ScrollDataType } from "../../interfaces/common";
 import { IUser, LoginDataType, ChangedUserInfoType } from "../../interfaces/user";

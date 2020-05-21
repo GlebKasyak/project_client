@@ -8,5 +8,7 @@ export enum TypesFileEnum {
 export enum MainEndpoints {
     users = "/users",
     friend = "/friend",
-    dialog = "/dialog"
+    dialog = "/dialog",
+    blog = "/blog",
+    reaction = "/reaction"
 }
