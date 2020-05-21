@@ -3,8 +3,8 @@ import { History } from "history";
 
 import { userActions } from "../store/actions/user.action";
 import { StoreType } from "../store";
-import { storageKeys } from "../assets/constants/commons";
-import { ENV, PageUrls } from "../assets/constants";
+import { storageKeys } from "../shared/constants/commons";
+import { ENV, PageUrls } from "../shared/constants";
 
 export default (store: StoreType, history: History) => {
     axios.defaults.baseURL = `${ ENV.SERVER_URL }/api/`;

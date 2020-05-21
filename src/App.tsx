@@ -11,8 +11,8 @@ import socket from "./socketServices";
 import { AppStateType } from "./store/reducers";
 import { UserSelectors } from "./store/selectors";
 import { Auth, DoNotAuth } from "./hoc";
-import { storageKeys } from "./assets/constants/commons";
-import { PageUrls } from "./assets/constants";
+import { storageKeys } from "./shared/constants/commons";
+import { PageUrls } from "./shared/constants";
 import { getAuthUserData, userActions } from "./store/actions/user.action";
 import "./assets/styles/app.scss";
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { TypesFileEnum, MainEndpoints } from "../assets/constants/api.contsnts";
+import { TypesFileEnum, MainEndpoints } from "../shared/constants/api.contsnts";
 import { ScrollDataType } from "../interfaces/common";
 import { CreateDialogDataType } from "../interfaces/dialog";
 
