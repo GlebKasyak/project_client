@@ -11,29 +11,33 @@ import { IUser } from "../../interfaces/user";
 import { FriendAPI, UserAPI } from "../../apiServices";
 import { getDataFromQueryUrl } from "../../shared/helpres";
 
+
 type Props = {
     selfId: string
 }
 
 const UserInfoPageContainer: FC<Props> = ({ selfId }) => {
+    const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
+
     const [userInfo, setUserInfo] = useState<IUser | null>(null);
     const [isFriend, setIsFriend] = useState(false);
-    const history = useHistory();
 
-    const fetchData = useCallback(async (userId: string) => {
+    const fetchUserInfo = useCallback(async (userId: string) => {
         const user = await UserAPI.getUserInfo(userId);
-        const { data } = user.data;
+        const { data: userInfo } = user.data;
 
-        setUserInfo(data);
-        setIsFriend(data.friends.some((id: string) => id === selfId));
+        setUserInfo(userInfo);
+        setIsFriend(userInfo.friends.some((id: string) => id === selfId));
         setIsLoading(false);
     },[selfId]);
 
     useEffect(() => {
         const { userId } = getDataFromQueryUrl(history.location.search);
-        if(userId && !userInfo) fetchData(userId)
-    }, [history.location.search, fetchData, userInfo]);
+        if(userId && !userInfo) {
+            fetchUserInfo(userId)
+        }
+    }, [history.location.search, fetchUserInfo, userInfo]);
 
     const addNewFriend = async (userId: string) => {
         const res = await FriendAPI.addNewFriend(userId);
@@ -53,7 +57,7 @@ const UserInfoPageContainer: FC<Props> = ({ selfId }) => {
         }
     };
 
-    const handleClick = (id: string) => isFriend ? removeFriend(id) : addNewFriend(id);
+    const handleToggleFriend = (id: string) => isFriend ? removeFriend(id) : addNewFriend(id);
 
     if(isLoading || !userInfo) return <Preloader text="User is loading..." />;
 
@@ -61,7 +65,7 @@ const UserInfoPageContainer: FC<Props> = ({ selfId }) => {
         selfId={ selfId }
         userInfo={ userInfo }
         isFriend={ isFriend }
-        handleClick={ handleClick }
+        onToggleFriend={ handleToggleFriend }
     />
 }
 

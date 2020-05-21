@@ -3,20 +3,26 @@ import cn from "classnames";
 import { Card, Button } from "antd";
 import { Link } from "react-router-dom";
 
-import { StatusText } from "../../components";
+import { StatusText, BlogList } from "../../components";
 import "./style.scss";
 
 import { IUser } from "../../interfaces/user";
-import { ENV, PageUrls } from "../../assets/constants";
+import { ENV, PageUrls } from "../../shared/constants";
 
 type Props = {
     selfId: string,
     userInfo: IUser,
     isFriend: boolean,
-    handleClick: (id: string) => void
+    onToggleFriend: (id: string) => void,
 }
 
-const UserInfoPage: FC<Props> = ({ selfId, userInfo, isFriend, handleClick }) => {
+const UserInfoPage: FC<Props> = (
+    {
+        selfId,
+        userInfo,
+        isFriend,
+        onToggleFriend,
+    }) => {
     const { avatar, firstName, secondName, email, _id, friends, status, isOnline } = userInfo;
 
     return (
@@ -45,7 +51,7 @@ const UserInfoPage: FC<Props> = ({ selfId, userInfo, isFriend, handleClick }) =>
                                                 "user-info-page__btn",
                                                 { "user-info-page__btn--is-friend": isFriend })
                                             }
-                                            onClick={ handleClick.bind(null, _id) }
+                                            onClick={ onToggleFriend.bind(null, _id) }
                                         >
                                             { isFriend ? "Remove from friends" : "Add to friends list" }
                                         </Button>
@@ -65,14 +71,15 @@ const UserInfoPage: FC<Props> = ({ selfId, userInfo, isFriend, handleClick }) =>
                         <span className="user-info-page__friends" >{ friends.length }</span>
                     </Link>
                 </div>
-                <div className="right-block card-hover grey-border " >
+                <div className="right-block " >
                     <div className={ cn(
-                        "user-info-page__status",
+                        "user-info-page__status card-hover grey-border",
                         { "user-info-page__status--isHave": status })
                     } >
                         { !!status && <div>{ status }</div> }
                         <StatusText isOnline={ isOnline } />
                     </div>
+                    <BlogList userId={ _id } selfId={ selfId } />
                 </div>
             </div>
         </div>
