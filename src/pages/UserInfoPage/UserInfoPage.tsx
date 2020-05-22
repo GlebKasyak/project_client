@@ -79,7 +79,11 @@ const UserInfoPage: FC<Props> = (
                         { !!status && <div>{ status }</div> }
                         <StatusText isOnline={ isOnline } />
                     </div>
-                    <BlogList userId={ _id } selfId={ selfId } />
+                    <BlogList
+                        userId={ _id }
+                        selfId={ selfId }
+                        parentPage="UserInfoPage"
+                    />
                 </div>
             </div>
         </div>

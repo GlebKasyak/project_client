@@ -9,6 +9,7 @@ import { NewBlogData, IBlog, GetBlogsData } from "../../interfaces/blog";
 
 export const blogActions = {
     createBlogAC: (payload: IBlog) => ({ type: blogTypes.CREATE_BLOG, payload } as const),
+    deleteBlogAC: (payload: string) => ({ type: blogTypes.DELETE_BLOG, payload } as const),
     getBlogsAC: (payload: Array<IBlog>) => ({ type: blogTypes.GET_BLOGS, payload } as const),
     setTotalBlogsCountAC: (payload: number) => ({ type: blogTypes.SET_TOTAL_BLOGS_COUNT, payload } as const),
     setBlogPageAC: (payload: number) => ({ type: blogTypes.SET_BLOG_PAGE, payload } as const),
@@ -29,6 +30,14 @@ export const createBlog = (newData: NewBlogData): ThunkActionType<void> => async
    }
 };
 
+export const deleteBlog = (blogId: string): ThunkActionType<void> => async dispatch => {
+   const response = await BlogAPI.deleteBlog(blogId);
+
+   if(response.data.success) {
+       dispatch(blogActions.deleteBlogAC(blogId));
+   }
+};
+
 export const getBlogs = (newData: GetBlogsData): ThunkActionType<void> => async dispatch => {
    const response = await BlogAPI.getBlogs(newData);
    const { data: { blogs, totalCount }, success } = response.data;
@@ -40,11 +49,15 @@ export const getBlogs = (newData: GetBlogsData): ThunkActionType<void> => async 
 };
 
 export const createReaction = (newData: ReactionType): ThunkActionType<void> => async dispatch => {
-    const response = await ReactionAPI.createReaction(newData);
-    const { success, data } = response.data;
+    try {
+        const response = await ReactionAPI.createReaction(newData);
+        const { success, data } = response.data;
 
-    if(success) {
-        dispatch(blogActions.createReactionAC(data))
+        if(success) {
+            dispatch(blogActions.createReactionAC(data))
+        }
+    } catch (err) {
+        console.log(err)
     }
 };
 

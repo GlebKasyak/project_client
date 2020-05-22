@@ -9,6 +9,7 @@ import { ReactionType } from "../../../interfaces/reaction";
 import {
     blogActions,
     createReaction,
+    deleteBlog,
     getBlogs,
     remoteReaction,
     ThunkDispatchBlogsType
@@ -26,6 +27,7 @@ type MapStateToProps = {
 
 type MapDispatchToProps = {
     getBlogs: (data: GetBlogsData) => void,
+    deleteBlog: (blogId: string) => void,
     setBlogPage: (page: number) => void,
     createReaction: (data: ReactionType) => void,
     remoteReaction: (data: ReactionType) => void
@@ -34,6 +36,7 @@ type MapDispatchToProps = {
 type OwnProps = {
     selfId: string,
     userId: string,
+    parentPage: "UserInfoPage" | "ProfilePage"
 }
 
 type Props = MapStateToProps & MapDispatchToProps & OwnProps;
@@ -43,9 +46,11 @@ const BlogListContainer: FC<Props> = (
         blogs,
         selfId,
         userId,
+        parentPage,
         pagination,
         totalBlogsCount,
         getBlogs,
+        deleteBlog,
         setBlogPage,
         createReaction,
         remoteReaction
@@ -67,9 +72,11 @@ const BlogListContainer: FC<Props> = (
         ? <BlogList
             blogs={ blogs }
             selfId={ selfId }
+            parentPage={ parentPage }
             pagination={ pagination }
             totalBlogsCount={ totalBlogsCount }
             setBlogPage={ setBlogPage }
+            deleteBlog={ deleteBlog }
             onClick={ handleClick }
         />
         : <EmptyComponent description="The story is empty" />
@@ -77,6 +84,7 @@ const BlogListContainer: FC<Props> = (
 
 const mapDispatchToProps = (dispatch: ThunkDispatchBlogsType) => ({
     getBlogs: (data: GetBlogsData) => dispatch(getBlogs(data)),
+    deleteBlog: (blogId: string) => dispatch(deleteBlog(blogId)),
     setBlogPage: (page: number) => dispatch(blogActions.setBlogPageAC(page)),
     createReaction: (data: ReactionType) => dispatch(createReaction(data)),
     remoteReaction: (data: ReactionType) => dispatch(remoteReaction(data))

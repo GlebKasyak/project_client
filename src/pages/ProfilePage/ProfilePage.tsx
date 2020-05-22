@@ -46,7 +46,10 @@ const ProfilePage: FC<PropsType> = (
                   <div className="profile__header" >
                       <Typography.Title level={4} className="profile__title" >
                           <Tooltip title="Edit profile" >
-                              <icons.EditOutlined className="profile__edit-profile" onClick={ () => setEditMode(true) } />
+                              <icons.EditOutlined
+                                  className="profile__edit-profile"
+                                  onClick={ () => setEditMode(true) }
+                              />
                           </Tooltip>
                           User Profile
                       </Typography.Title>
@@ -97,6 +100,8 @@ const ProfilePage: FC<PropsType> = (
                   { editMode &&
                       <ProfileEditForm
                           editMode={ editMode }
+                          firstName={ user.firstName }
+                          secondName={ user.secondName }
                           setEditMode={ setEditMode }
                           changeUserInfo={ changeUserInfo }
                       />
@@ -104,7 +109,11 @@ const ProfilePage: FC<PropsType> = (
               </div>
                <div className="profile-right">
                    <ProfileBlogForm />
-                   <BlogList selfId={ user._id } userId={ user._id } />
+                   <BlogList
+                       selfId={ user._id }
+                       userId={ user._id }
+                       parentPage="ProfilePage"
+                   />
                </div>
            </div>
         </div>

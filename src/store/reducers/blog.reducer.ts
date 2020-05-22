@@ -23,13 +23,26 @@ const reducer: Reducer<BlogState, ActionsTypes> = (state = initialState, action:
         case blogTypes.CREATE_BLOG:
             const { limit, currentPage } = state.pagination;
             const blogs = state.totalBlogsCount / currentPage < limit
-                ? [...state.blogs, action.payload]
+                ? [action.payload, ...state.blogs]
                 : state.blogs;
 
             return {
                 ...state,
                 blogs,
-                totalBlogsCount: state.totalBlogsCount + 1
+                totalBlogsCount: state.totalBlogsCount + 1,
+                pagination: {
+                    ...state.pagination,
+                    currentPage: 1
+                }
+            };
+        case blogTypes.DELETE_BLOG:
+            return {
+                ...state,
+                blogs: state.blogs.filter(blog => blog._id !== action.payload),
+                pagination: {
+                    ...state.pagination,
+                    currentPage: 1
+                }
             };
         case blogTypes.GET_BLOGS:
             return {
