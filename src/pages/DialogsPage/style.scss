@@ -1,7 +1,9 @@
+@import "./../../assets/styles/variables";
 
 .dialog-page {
   max-width: 700px!important;
   position: relative;
+  background-color: $white;
 
   &__list {
     height: 100%;

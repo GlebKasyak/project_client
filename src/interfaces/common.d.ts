@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, MouseEvent, KeyboardEvent, FormEvent } from "react";
 import { ValidationRule } from "antd/lib/form";
 
 export interface ResponseType {
@@ -9,14 +9,15 @@ export interface ResponseType {
 
 export namespace Handlers {
     type SubmitType = (e: SubmitTypes) => Promise<void> | void;
-    type ChangeType = (e: React.ChangeEvent<HTMLInputElement>) => void;
-    type ClickType = (e: React.MouseEvent<HTMLButtonElement>) => void;
+    type ChangeType = (e: ChangeEvent<HTMLInputElement>) => void;
+    type ClickType = (e: MouseEvent<HTMLButtonElement>) => void;
 
     type SubmitTypes =
-        | React.FormEvent<HTMLFormElement>
-        | React.KeyboardEvent<HTMLTextAreaElement>
-        | React.MouseEvent<HTMLElement, MouseEvent>
+        | FormEvent<HTMLFormElement>
+        | KeyboardEvent<HTMLTextAreaElement>
+        | MouseEvent<HTMLElement, MouseEvent>
 
+    type InputTextAreaChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export type SetStateType<T> = Dispatch<SetStateAction<T>>;
@@ -29,7 +30,7 @@ export type FieldsType = {
     rules: [ValidationRule],
     iconType: string,
     initialValue?: string
-}
+};
 
 export interface IDbDocumentType {
     _id: string,
@@ -40,6 +41,10 @@ export interface IDbDocumentType {
 export type ScrollDataType = {
     userId: string,
     limit: number,
-    page: number
-}
+    page: number,
+    filter?: string
+};
 
+export interface IResponseData<T> extends ResponseType {
+    data: T
+}

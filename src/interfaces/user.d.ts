@@ -13,7 +13,8 @@ export interface IUser extends IDbDocumentType{
     password?: string,
     isAuth?: boolean
     isOnline: boolean,
-    status: string
+    status: string,
+    friends: Array<this | string>
 }
 
 export type ChangedUserInfoType = Pick<IUser, "firstName" | "secondName">;

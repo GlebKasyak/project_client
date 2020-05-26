@@ -1,0 +1,18 @@
+@import "../../../assets/styles/variables";
+
+.blog-list {
+  padding: $default-padding;
+  margin-top: $default-margin;
+
+  .blog-item {
+
+    &__time {
+      display: flex;
+      font-size: 0.6rem;
+      line-height: 1;
+      font-weight: 400;
+      color: rgba(0, 0, 0, .5);
+    }
+  }
+
+}

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Preloader } from "../../components";
 import UsersPage from "./UsersPage";
 
-import { DialogAPI } from "../../apiServices/dialogAPI";
+import { DialogAPI } from "../../apiServices";
 import { AppStateType } from "../../store/reducers";
 import { IUser } from "../../interfaces/user";
 import { ResponseType, ScrollDataType } from "../../interfaces/common";

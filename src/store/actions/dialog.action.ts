@@ -1,11 +1,11 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import * as dialogTypes from "../types/dialogTypes";
-import { DialogAPI } from "../../apiServices/dialogAPI";
+import { DialogAPI } from "../../apiServices";
 import { AppStateType, InferActionsTypes } from "../reducers";
 
-import { ResponseType, ScrollDataType } from "../../interfaces/common";
-import { IDialog, IResponseDialogsData } from "../../interfaces/dialog";
+import { ResponseType, ScrollDataType, IResponseData } from "../../interfaces/common";
+import { IDialog } from "../../interfaces/dialog";
 
 export const dialogActions = {
     getDialogsByIdAC: (payload: Array<IDialog>) => ({ type: dialogTypes.GET_DIALOGS_BY_ID, payload } as const),
@@ -18,14 +18,14 @@ export const dialogActions = {
 type ThunkActionType<T> = ThunkAction<Promise<T>, AppStateType, unknown, InferActionsTypes<typeof dialogActions>>;
 export type ThunkDispatchDialogsType = ThunkDispatch<AppStateType, unknown, InferActionsTypes<typeof dialogActions>>;
 
-export const getDialogsById = (data: ScrollDataType): ThunkActionType<IResponseDialogsData> => async dispatch => {
+export const getDialogsById = (scrollData: ScrollDataType): ThunkActionType<IResponseData<Array<IDialog>>> => async dispatch => {
     try {
-        const response = await DialogAPI.getDialogsById(data);
+        const response = await DialogAPI.getDialogsById(scrollData);
 
-        const { success, dialogs } = response.data;
+        const { success, data } = response.data;
         if(success) {
-            dispatch(dialogActions.getDialogsByIdAC(dialogs));
-            return { success, dialogs };
+            dispatch(dialogActions.getDialogsByIdAC(data));
+            return { success, data };
         }
     } catch (err) {
         return err.response.data;
@@ -42,10 +42,10 @@ export const searchDialogs = (value: string, userId: string): ThunkActionType<Re
    try {
        const response = await DialogAPI.searchDialogs(value, userId);
 
-       const { success, dialogs, message } = response.data;
+       const { success, data, message } = response.data;
        if(success) {
            dispatch(dialogActions.clearDialogListAC());
-           dispatch(dialogActions.searchDialogsAC(dialogs));
+           dispatch(dialogActions.searchDialogsAC(data));
 
            return { success, message }
        }

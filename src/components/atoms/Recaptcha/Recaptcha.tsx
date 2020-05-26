@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Recaptcha from "react-recaptcha";
 
-import { ENV } from "../../../assets/constants";
+import { ENV } from "../../../shared/constants";
 import "./style.scss";
 
 type PropsType = {

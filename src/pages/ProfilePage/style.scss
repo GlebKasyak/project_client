@@ -3,63 +3,80 @@
 .profile {
   $self: &;
 
-  max-width: 350px!important;
-  margin: auto;
+  display: flex;
 
-  &__section {
-    font-size: 1.2rem!important;
-    line-height: 1.5rem;
-    margin-bottom: $default-margin;
-  }
+  &-left {
+    max-width: 350px!important;
+    width: 100%;
+    padding: $default-padding;
 
-  &__header {
-    display: flex;
-    justify-content: space-between;
-
-    #{ $self }__status {
-      display: flex;
-      align-self: center;
+    #{ $self }__section {
+      font-size: 1.2rem!important;
+      line-height: 1.5rem;
+      margin-bottom: $default-margin;
     }
 
-    #{ $self }__title {
-      position: relative;
+    #{ $self }__header {
+      display: flex;
+      justify-content: space-between;
 
-      #{ $self }__edit-profile {
-        position: absolute;
-        right: -1.75rem;
-        font-size: 1rem;
-        color: $blue;
-        cursor: pointer;
+      #{ $self }__title {
+        position: relative;
+
+        #{ $self }__edit-profile {
+          position: absolute;
+          right: -1.75rem;
+          font-size: $font-size;
+          color: $blue;
+          cursor: pointer;
+        }
+      }
+    }
+
+    #{ $self }__friends {
+      display: flex;
+      margin-bottom: 0.5rem;
+      font-size: $font-size;
+      color: $light-blue;
+    }
+
+    #{ $self }__avatar {
+
+      #{ $self }-avatar-wrapper {
+        width: 150px;
+        height: 150px;
+      }
+
+      #{ $self }-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
   }
 
-  &__avatar {
-
-    #{ $self }-avatar-wrapper {
-      width: 150px;
-      height: 150px;
-    }
-
-    #{ $self }-avatar {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  &-right {
+    position: relative;
+    margin-left: $default-margin;
+    width: 100%;
   }
+
 
   @media (max-width: 767px) {
 
-    &__section {
-      font-size: $font-size!important;
-      margin-bottom: 0.5rem!important;
-    }
+    &-left {
 
-    &__avatar {
+      #{ $self }__section {
+        font-size: $font-size!important;
+        margin-bottom: 0.5rem!important;
+      }
 
-      #{ $self }-avatar-wrapper {
-        width: 100px;
-        height: 100px;
+      #{ $self }__avatar {
+
+        #{ $self }-avatar-wrapper {
+          width: 100px;
+          height: 100px;
+        }
       }
     }
   }

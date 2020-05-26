@@ -8,7 +8,7 @@ import UserAvatar from "../../atoms/UserAvatar/UserAvatar";
 import { IMessage, MessageTypes, EnumTypeOfMessage } from "../../../interfaces/dialog";
 import { getShortenString } from "../../../shared/helpres";
 import icons from "../../../shared/icons";
-import { ENV } from "../../../assets/constants";
+import { ENV } from "../../../shared/constants";
 import "./style.scss";
 
 type PropsType = {

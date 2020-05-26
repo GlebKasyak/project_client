@@ -27,7 +27,10 @@ const reducer: Reducer<DialogState, ActionsTypes> = (state = initialState, actio
                 dialogs: state.dialogs.filter(dialog => dialog._id !== action.payload)
             };
         case dialogTypes.CLEAR_DIALOG_LIST:
-            return {  ...state, dialogs: [] };
+            return {
+                ...state,
+                dialogs: []
+            };
         case dialogTypes.SEARCH_DIALOGS:
             return {
                 ...state,

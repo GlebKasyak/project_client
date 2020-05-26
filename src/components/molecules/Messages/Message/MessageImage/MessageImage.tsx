@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { ENV } from "../../../../../assets/constants";
+import { ENV } from "../../../../../shared/constants";
 import "./style.scss";
 
 type Props = {

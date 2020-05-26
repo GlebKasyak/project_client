@@ -8,7 +8,7 @@ import { ErrorMessage, Preloader, Recaptcha } from "../../components";
 
 import { login, ThunkDispatchUsersType } from "../../store/actions/user.action";
 import { UserSelectors } from "../../store/selectors"
-import { storageKeys } from "../../assets/constants/commons";
+import { storageKeys } from "../../shared/constants/commons";
 import rememberMe from "../../shared/rememberMe";
 
 import { AppStateType } from "../../store/reducers";

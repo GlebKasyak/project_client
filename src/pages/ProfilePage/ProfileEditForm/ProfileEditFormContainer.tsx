@@ -7,17 +7,21 @@ import { ChangedUserInfoType } from "../../../interfaces/user";
 
 type Props = {
     editMode: boolean,
+    firstName: string,
+    secondName: string,
     setEditMode: SetStateType<boolean>,
     changeUserInfo: (data: ChangedUserInfoType) => void
 }
 
-const ProfileEditFormContainer: FC<Props> = ({ editMode, setEditMode, changeUserInfo }) => {
-    const [values, setValues] = useState<{ [x: string]: string }>({
-        firstName: "",
-        secondName: ""
-    });
+const ProfileEditFormContainer: FC<Props> = ({ editMode, setEditMode, changeUserInfo, firstName, secondName }) => {
+    const [values, setValues] = useState<{ [x: string]: string }>({ firstName, secondName });
 
-    const handleChange: Handlers.ChangeType = e => setValues({ ...values, [e.target.name]: e.target.value });
+    const handleChange: Handlers.ChangeType = e => {
+        setValues({
+            ...values,
+            [e.target.name]: e.target.value
+        });
+    }
 
     const handleSubmit: Handlers.SubmitType = e => {
         e.preventDefault();

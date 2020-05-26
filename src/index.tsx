@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 
 import App from "./App";
 
-import apiServices from "./apiServices";
+import apiServices from "./apiServices/instance";
 import { store } from "./store";
 
 const history = createBrowserHistory();

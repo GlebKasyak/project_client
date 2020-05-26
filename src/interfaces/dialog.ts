@@ -1,4 +1,4 @@
-import { IDbDocumentType, ResponseType } from "./common";
+import { IDbDocumentType } from "./common";
 import { IUser } from "./user";
 
 export interface CreateDialogDataType {
@@ -33,8 +33,4 @@ export interface IMessage extends IDbDocumentType {
     isChanged: boolean,
     unread: boolean,
     type: MessageTypes
-}
-
-export interface IResponseDialogsData extends ResponseType {
-    dialogs: Array<IDialog>
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, ComponentType } from "react";
 
-import { storageKeys } from "../assets/constants/commons";
+import { PageUrls } from "../shared/constants";
+import { storageKeys } from "../shared/constants/commons";
 
 const WithAuthRedirect = <P extends any>(Component: ComponentType<P>) => {
     const RedirectComponent: React.FC<P> = props => {
@@ -8,7 +9,7 @@ const WithAuthRedirect = <P extends any>(Component: ComponentType<P>) => {
         useEffect(() => {
             let isAuth = localStorage.getItem(storageKeys.isAuth);
 
-            if(isAuth && JSON.parse(isAuth)) props.history.push("/");
+            if(isAuth && JSON.parse(isAuth)) props.history.push(PageUrls.home);
         }, [props.history]);
 
         return <Component { ...props } />

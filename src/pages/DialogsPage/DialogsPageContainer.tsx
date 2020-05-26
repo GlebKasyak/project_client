@@ -13,8 +13,8 @@ import {
 } from "../../store/actions/dialog.action";
 import { UserSelectors, DialogSelectors } from "../../store/selectors";
 import { AppStateType } from "../../store/reducers";
-import { ResponseType, ScrollDataType } from "../../interfaces/common";
-import { IDialog, IResponseDialogsData } from "../../interfaces/dialog";
+import { ResponseType, ScrollDataType, IResponseData } from "../../interfaces/common";
+import { IDialog } from "../../interfaces/dialog";
 
 
 type MapStateToPropsType = {
@@ -24,7 +24,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    getDialogsById: (data: ScrollDataType) => Promise<IResponseDialogsData>
+    getDialogsById: (data: ScrollDataType) => Promise<IResponseData<Array<IDialog>>>
     deleteDialogsById: (dialogId: string) => void,
     searchDialogs: (value: string, userId: string) => Promise<ResponseType>,
     clearDialogList: () => void
@@ -55,7 +55,7 @@ const DialogsPageContainer: FC<PropsType> = (
         setIsLoading(true);
 
         const response = await getDialogsById(data);
-        response.dialogs!.length < limit && setHasMore(false);
+        response.data.length < limit && setHasMore(false);
 
         setIsLoading(false);
     }, [getDialogsById, data]);
@@ -76,7 +76,7 @@ const DialogsPageContainer: FC<PropsType> = (
             const response = await getDialogsById(data);
 
             setPage(prevPage => prevPage + 1);
-            response.dialogs!.length < limit && setHasMore(false);
+            response.data.length < limit && setHasMore(false);
         } else {
             setHasMore(false);
         }

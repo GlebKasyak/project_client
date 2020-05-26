@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { InputFormField } from "../../components"
 
-import { formItemLayout, tailFormItemLayout, formWrapperLayout } from "../../assets/constants/formLayout";
+import { formItemLayout, tailFormItemLayout, formWrapperLayout } from "../../shared/constants/formLayout";
 import { Handlers, FieldsType } from "../../interfaces/common";
 
 interface ILoginForm extends FormComponentProps {

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import UserAvatar from "../../atoms/UserAvatar/UserAvatar";
 
+import { PageUrls } from "../../../shared/constants";
 import icons from "./../../../shared/icons";
 import { IUser } from "../../../interfaces/user";
 import "./style.scss";
@@ -16,10 +17,10 @@ type PropsType = {
 const UserCard: React.FC<PropsType> = ({ user, onClick }) => (
     <Col xs={24} sm={12} lg={8} className="user-card" >
         <Card
-            className="user-card__card"
+            className="user-card__card card-hover"
             actions={[
                 <Tooltip title="View profile" >
-                    <Link to={ `/user-info?userId=${ user._id }` } >
+                    <Link to={ `${ PageUrls.userInfo }?userId=${ user._id }` } >
                         <div>View profile <icons.EyeOutlined /></div>
                     </Link>
                 </Tooltip>,

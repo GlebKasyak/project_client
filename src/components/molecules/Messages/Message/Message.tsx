@@ -5,7 +5,7 @@ import MessageImage from "./MessageImage/MessageImage";
 import MessageAudioContainer from "./MessageAudio/MessageAudioContainer";
 
 import icons from "../../../../shared/icons";
-import { ENV } from "../../../../assets/constants";
+import { ENV } from "../../../../shared/constants";
 import { IMessage, MessageTypes, EnumTypeOfMessage } from "../../../../interfaces/dialog";
 import { getTimeMessage } from "../../../../shared/helpres";
 import showConfirm from "../../../../shared/showConfirm";

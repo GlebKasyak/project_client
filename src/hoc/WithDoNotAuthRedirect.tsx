@@ -1,7 +1,8 @@
 import React, { useEffect, ComponentType } from "react";
 import { RouteComponentProps  } from "react-router-dom";
 
-import { storageKeys } from "../assets/constants/commons";
+import { PageUrls } from "../shared/constants";
+import { storageKeys } from "../shared/constants/commons";
 
 const WithDoNotAuthRedirect = <P extends RouteComponentProps>(Component: ComponentType<P>) => {
      const RedirectComponent: React.FC<P> = props => {
@@ -9,8 +10,8 @@ const WithDoNotAuthRedirect = <P extends RouteComponentProps>(Component: Compone
             let isAuth = localStorage.getItem(storageKeys.isAuth);
 
             if(!isAuth || !JSON.parse(isAuth)) {
-                if(props.history.location.pathname !== "/register") {
-                    props.history.push("/login");
+                if(props.history.location.pathname !== PageUrls.register) {
+                    props.history.push(PageUrls.login);
                 }
             }
 

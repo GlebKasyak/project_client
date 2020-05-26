@@ -16,7 +16,8 @@ const initialState: UserState = {
         createdAt: "",
         isAuth: false,
         isOnline: false,
-        status: ""
+        status: "",
+        friends: []
     },
     users: [],
 };
@@ -37,7 +38,10 @@ const reducer: Reducer<UserState, ActionsTypes> = (state = initialState, action:
         case userTypes.LOGOUT_USER:
             return {
                 ...state,
-                user: { ...initialState.user, isAuth: false }
+                user: {
+                    ...initialState.user,
+                    isAuth: false
+                }
             };
         case userTypes.GET_USERS:
             return {
@@ -53,28 +57,43 @@ const reducer: Reducer<UserState, ActionsTypes> = (state = initialState, action:
                 }
             };
         case userTypes.REMOVE_USER:
-            return { ...state, user: initialState.user };
+            return {
+                ...state,
+                user: initialState.user
+            };
         case userTypes.SEARCH_USER_BY_EMAIL:
             return {
                 ...state,
                 users: action.payload
             };
         case userTypes.CLEAR_USERS_LIST:
-            return { ...state, users: [] };
+            return {
+                ...state,
+                users: []
+            };
         case userTypes.GET_ONLINE_STATUS:
             return {
                 ...state,
-                user: { ...state.user, isOnline: action.payload }
+                user: {
+                    ...state.user,
+                    isOnline: action.payload
+                }
             };
         case userTypes.SET_USER_STATUS:
             return {
                 ...state,
-                user: { ...state.user, status: action.payload }
+                user: {
+                    ...state.user,
+                    status: action.payload
+                }
             };
         case userTypes.CHANGE_USER_INFO:
             return {
                 ...state,
-                user: { ...state.user, ...action.payload }
+                user: {
+                    ...state.user,
+                    ...action.payload
+                }
             };
         default:
             exhaustiveCheck(action);

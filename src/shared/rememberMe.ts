@@ -1,5 +1,5 @@
 import { WrappedFormUtils } from "antd/lib/form/Form";
-import { storageKeys } from "../assets/constants/commons";
+import { storageKeys } from "./constants/commons";
 
 export default (form: WrappedFormUtils, data: string) => {
     if(form.getFieldValue("isRememberMe")) {
