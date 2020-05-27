@@ -1,0 +1,88 @@
+@import "../../../../assets/styles/variables";
+
+.comment-form {
+  $self: &;
+
+  display: flex;
+  padding: $default-padding 0 0.5rem;
+  border-bottom: 0.063rem solid $lite-grey;;
+
+  &__textarea {
+    width: 100%;
+    resize: none;
+  }
+
+  &__btn-wrapper {
+    position: relative;
+    display: flex;
+
+    #{ $self }__button,  #{ $self }__cancel  {
+      display: flex;
+      justify-content: center;
+      align-self: flex-end;
+    }
+
+    #{ $self }__button {
+      margin-bottom: 0.25rem;
+    }
+
+    #{ $self }__cancel {
+      margin: 0 $default-margin 0.25rem;
+    }
+
+    #{ $self }__emoji-picker {
+      position: absolute;
+      right: 80px;
+      top: 1rem;
+      z-index: 1;
+    }
+
+    #{ $self }__smile-btn {
+      position: absolute;
+      right: 135px;
+      top: -20px;
+    }
+  }
+
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+
+    &__textarea {
+      padding-right: 2rem;
+    }
+
+    &__btn-wrapper {
+
+      #{ $self }__button,  #{ $self }__cancel {
+        width: 50%;
+        margin-top: 0.5rem;
+      }
+
+      #{ $self }__cancel {
+        margin: 0 $default-margin 0 0;
+      }
+
+      #{ $self }__button {
+        margin-bottom: 0;
+      }
+
+      #{ $self }__smile-btn {
+        right:  0.25rem;
+        top: -3rem;
+      }
+
+      #{ $self }__emoji-picker {
+        bottom: 110px;
+      }
+    }
+
+    .emoji-mart.emoji-mart-light {
+      position: absolute;
+      top: -140px;
+      right: 0;
+      width: 220px!important;
+    }
+  }
+}
+

@@ -1,0 +1,33 @@
+@import "../../../../assets/styles/variables";
+
+.comment {
+
+  &__name {
+    font-weight: 500;
+    color: $black;
+  }
+
+  &__content, &__name {
+    font-size: 0.875rem;
+  }
+
+  &__replay-to {
+    margin-left: 0.5rem;
+    font-size: 0.875rem!important;
+  }
+
+  &__time {
+    font-size: 0.75rem!important;
+  }
+
+  &__delete-btn {
+    position: absolute;
+    right: 0;
+    color: $red!important;
+  }
+
+  .ant-comment-content {
+    padding-bottom: 0.25rem;
+    border-bottom: 0.063rem solid $lite-grey;
+  }
+}

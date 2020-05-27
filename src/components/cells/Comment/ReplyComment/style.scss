@@ -1,0 +1,14 @@
+@import "./../../../../assets/styles/variables";
+
+.reply-comment {
+
+  &__numbers {
+    margin: 0;
+    color: $blue;
+    font-weight: 500;
+  }
+
+  &__comment-wrapper {
+    margin-left: 2.5rem;
+  }
+}
