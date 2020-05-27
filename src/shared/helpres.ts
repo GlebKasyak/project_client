@@ -25,7 +25,7 @@ export const getDataFromQueryUrl = (query: string) => {
     return query
         .slice(1)
         .split("&")
-        .map((query: string) => query.split("="))
+        .map(query => query.split("="))
         .reduce((acc, curr) => {
             acc[curr[0]] = curr[1]; return acc;
         }, {} as DataType)

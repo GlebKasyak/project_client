@@ -1,4 +1,5 @@
 import { IBlog } from "../interfaces/blog";
+import { IComment } from "../interfaces/comment";
 import { ReactionFromDB } from "../interfaces/reaction";
 
 type ReactionMethods = (reactions: Array<ReactionFromDB>, userId: string) => [number, number, boolean, boolean];
@@ -26,34 +27,34 @@ export const getReactions: ReactionMethods = (reactions, userId) => {
     return [likes, dislikes, likeAction, dislikeAction]
 };
 
-export const incrBlogReaction = (blog: IBlog, data: ReactionFromDB) => {
-    if(blog._id === data.blogId) {
-        const reactionIndex = blog.reactions.findIndex(reaction => reaction.author === data.author);
+export const incrReaction = (itemId: "blogId" | "commentId", item: IBlog | IComment, data: ReactionFromDB) => {
+    if(item._id === data[itemId]) {
+        const reactionIndex = item.reactions.findIndex(reaction => reaction.author === data.author);
         if (reactionIndex === -1) {
             return {
-                ...blog,
-                reactions: [...blog.reactions, data]
+                ...item,
+                reactions: [...item.reactions, data]
             };
         } else {
-            blog.reactions[reactionIndex] = data;
+            item.reactions[reactionIndex] = data;
             return {
-                ...blog,
-                reactions: [...blog.reactions]
+                ...item,
+                reactions: [...item.reactions]
             };
         }
     }
 
-    return blog;
+    return item as any;
 };
 
-export const decrBlogReaction = (blog: IBlog, data: ReactionFromDB) => {
-    if(blog._id === data.blogId) {
+export const decrReaction = (itemId: "blogId" | "commentId", item: IBlog | IComment, data: ReactionFromDB) => {
+    if(item._id === data[itemId]) {
         return {
-            ...blog,
-            reactions: blog.reactions.filter(reaction => reaction._id !== data._id)
+            ...item,
+            reactions: item.reactions.filter(reaction => reaction._id !== data._id)
         }
     }
 
-    return blog;
+    return item as any;
 };
 

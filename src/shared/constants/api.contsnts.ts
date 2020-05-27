@@ -10,5 +10,6 @@ export enum MainEndpoints {
     friend = "/friend",
     dialog = "/dialog",
     blog = "/blog",
-    reaction = "/reaction"
+    reaction = "/reaction",
+    comment = "/comment"
 }

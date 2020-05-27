@@ -35,7 +35,7 @@ const setRegisterFormField = (validators: Array<ValidatorsType>) => {
             iconType: "lock"
         },
         {
-            labelField: "Compare Password",
+            labelField: "Confirm Password",
             nameField: "confirm",
             type: "password",
             rules: [

@@ -63,8 +63,10 @@
 
 
   @media (max-width: 767px) {
+    flex-direction: column;
 
     &-left {
+      margin: 0 auto $default-margin;
 
       #{ $self }__section {
         font-size: $font-size!important;
@@ -78,6 +80,10 @@
           height: 100px;
         }
       }
+    }
+
+    &-right {
+      margin: auto;
     }
   }
 }

@@ -72,6 +72,7 @@ const FriendsPageContainer: FC = () => {
         setFriends(res.data.data);
 
         setIsLoading(false);
+        setHasMore(false);
     };
 
     if(isLoading) return <Preloader text="Friends are loading..." />;

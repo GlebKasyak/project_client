@@ -69,4 +69,12 @@
     }
   }
 
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    .right-block {
+      margin: $default-margin auto 0;
+    }
+  }
+
 }

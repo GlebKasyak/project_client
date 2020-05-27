@@ -107,7 +107,12 @@ const ChatPage: FC<PropsType> = props => (
                     onClick={ props.seIsVisibleAudio }
                     className="chat-page__audio-btn form-icon"
                 />
-                <Button type="primary" className="w-100 btn chat-page__enter-btn" htmlType="submit" disabled={ !props.message } >
+                <Button
+                    type="primary"
+                    className="w-100 btn chat-page__enter-btn"
+                    htmlType="submit"
+                    disabled={ !props.message }
+                >
                    <icons.EnterOutlined />
                 </Button>
             </Form>
