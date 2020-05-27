@@ -1,23 +1,18 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import BlogList from "./BlogList";
 import EmptyComponent from "../../atoms/EmptyComponent/EmptyComponent";
 
 import { IBlog, BlogPagination, GetBlogsData } from "../../../interfaces/blog";
-import { ReactionType } from "../../../interfaces/reaction";
 import {
     blogActions,
-    createReaction,
     deleteBlog,
     getBlogs,
-    remoteReaction,
     ThunkDispatchBlogsType
 } from "../../../store/actions/blog.action";
 import { AppStateType } from "../../../store/reducers";
 import { BlogSelectors } from "../../../store/selectors";
-
-export type HandleClickType = (blogId: string, reaction: boolean, action: boolean) => void
 
 type MapStateToProps = {
     blogs: Array<IBlog>,
@@ -28,9 +23,7 @@ type MapStateToProps = {
 type MapDispatchToProps = {
     getBlogs: (data: GetBlogsData) => void,
     deleteBlog: (blogId: string) => void,
-    setBlogPage: (page: number) => void,
-    createReaction: (data: ReactionType) => void,
-    remoteReaction: (data: ReactionType) => void
+    setBlogPage: (page: number) => void
 }
 
 type OwnProps = {
@@ -51,16 +44,9 @@ const BlogListContainer: FC<Props> = (
         totalBlogsCount,
         getBlogs,
         deleteBlog,
-        setBlogPage,
-        createReaction,
-        remoteReaction
+        setBlogPage
     }) => {
-
-    const handleClick: HandleClickType = (blogId, reaction, action) => {
-        action
-            ? remoteReaction({ author: selfId, blogId, reaction })
-            : createReaction({ author: selfId, blogId, reaction })
-    };
+    const [visibleBlogId, setVisibleBlogId] = useState("");
 
     useEffect(() => {
         if(!!userId) {
@@ -75,9 +61,10 @@ const BlogListContainer: FC<Props> = (
             parentPage={ parentPage }
             pagination={ pagination }
             totalBlogsCount={ totalBlogsCount }
+            visibleBlogId={ visibleBlogId }
+            setVisibleBlogId={ setVisibleBlogId }
             setBlogPage={ setBlogPage }
             deleteBlog={ deleteBlog }
-            onClick={ handleClick }
         />
         : <EmptyComponent description="The story is empty" />
 }
@@ -86,8 +73,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatchBlogsType) => ({
     getBlogs: (data: GetBlogsData) => dispatch(getBlogs(data)),
     deleteBlog: (blogId: string) => dispatch(deleteBlog(blogId)),
     setBlogPage: (page: number) => dispatch(blogActions.setBlogPageAC(page)),
-    createReaction: (data: ReactionType) => dispatch(createReaction(data)),
-    remoteReaction: (data: ReactionType) => dispatch(remoteReaction(data))
 });
 
 const mapStateToProps = (state: AppStateType) => ({
