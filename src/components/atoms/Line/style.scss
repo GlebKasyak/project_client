@@ -1,0 +1,21 @@
+@import "./../../../assets/styles/variables";
+
+.line {
+  font-size: $font-size;
+  color: $black;
+  margin-bottom: $default-margin;
+  border-bottom: 0.063rem solid rgba(0, 0, 0, 0.6);
+
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0.125rem;
+    background: $black;
+    transition: width .3s;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
