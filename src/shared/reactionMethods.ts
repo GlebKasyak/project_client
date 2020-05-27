@@ -27,6 +27,7 @@ export const getReactions: ReactionMethods = (reactions, userId) => {
     return [likes, dislikes, likeAction, dislikeAction]
 };
 
+
 export const incrReaction = (itemId: "blogId" | "commentId", item: IBlog | IComment, data: ReactionFromDB) => {
     if(item._id === data[itemId]) {
         const reactionIndex = item.reactions.findIndex(reaction => reaction.author === data.author);
@@ -44,8 +45,9 @@ export const incrReaction = (itemId: "blogId" | "commentId", item: IBlog | IComm
         }
     }
 
-    return item as any;
+    return item;
 };
+
 
 export const decrReaction = (itemId: "blogId" | "commentId", item: IBlog | IComment, data: ReactionFromDB) => {
     if(item._id === data[itemId]) {
@@ -55,6 +57,6 @@ export const decrReaction = (itemId: "blogId" | "commentId", item: IBlog | IComm
         }
     }
 
-    return item as any;
+    return item;
 };
 

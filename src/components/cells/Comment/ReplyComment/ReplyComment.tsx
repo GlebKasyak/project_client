@@ -29,9 +29,9 @@ const ReplyComment: FC<Props> = ({ commentList, parentCommentId, blogId }) => {
             }
 
             { openReply &&
-                commentList.map((comment, index) => (
+                commentList.map(comment => (
                     comment.responseTo === parentCommentId &&
-                        <div className="reply-comment__comment-wrapper" key={ index } >
+                        <div className="reply-comment__comment-wrapper" key={ comment._id } >
                             <SingleComment
                                 comment={ comment }
                                 blogId={ blogId }

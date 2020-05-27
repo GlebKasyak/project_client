@@ -9,10 +9,3 @@ export default class CommentAPI {
     static deleteComment = (commentId: string) =>
         axios.delete(`${ MainEndpoints.comment }/${ commentId }`);
 }
-
-
-
-
-
-
-
