@@ -21,6 +21,8 @@ const FriendsPageContainer: FC = () => {
     const [hasMore, setHasMore] = useState(true);
 
     const [isLoading, setIsLoading] = useState(false);
+    const [value, setValue] = useState("");
+
     const [id, setId] = useState("");
     const [filter, setFilter] = useState<Filters>(Filters.all);
     const [friends, setFriends] = useState<Array<IUser>>([]);
@@ -28,7 +30,7 @@ const FriendsPageContainer: FC = () => {
     const fetchData = useCallback(async (userId: string) => {
         setIsLoading(true);
 
-        const res = await FriendAPI.getFriendsById({ userId, limit, page, filter });
+        const res = await FriendAPI.getFriendsById({ userId, limit, page, filter, value });
         const { success, data } = res.data;
 
         if(success) {
@@ -37,7 +39,7 @@ const FriendsPageContainer: FC = () => {
             setPage(1)
         }
         setIsLoading(false);
-    }, [page, filter]);
+    }, [page, filter, value]);
 
     useEffect(() => {
         const { userId } = getDataFromQueryUrl(history.location.search);
@@ -48,7 +50,7 @@ const FriendsPageContainer: FC = () => {
     }, [history.location.search, fetchData, friends.length, friends, page]);
 
     const handleScroll = async () => {
-        const res = await FriendAPI.getFriendsById({ userId: id, limit, page, filter });
+        const res = await FriendAPI.getFriendsById({ userId: id, limit, page, filter, value });
         const { success, data } = res.data;
 
         if(success) {
@@ -62,17 +64,19 @@ const FriendsPageContainer: FC = () => {
         setHasMore(true);
         setFriends([]);
         setFilter(filter);
+        setValue("");
         setPage(0);
     };
 
     const handleSearchFriends = async (value: string) => {
         setIsLoading(true);
 
-        const res = await FriendAPI.searchFriends(id, value);
+        const res = await FriendAPI.getFriendsById({ userId: id, limit, page: 0, filter, value });
         setFriends(res.data.data);
+        setPage(1);
 
+        setHasMore(true);
         setIsLoading(false);
-        setHasMore(false);
     };
 
     if(isLoading) return <Preloader text="Friends are loading..." />;
@@ -86,6 +90,7 @@ const FriendsPageContainer: FC = () => {
             filter={ filter }
             setNextPage={ handleScroll }
             getAllFriends={ getAllFriends }
+            onChange={ (value: string) => setValue(value) }
             onSearchFriends={ handleSearchFriends }
         />
     )

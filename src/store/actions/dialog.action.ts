@@ -23,12 +23,13 @@ export const getDialogsById = (scrollData: ScrollDataType): ThunkActionType<IRes
         const response = await DialogAPI.getDialogsById(scrollData);
 
         const { success, data } = response.data;
+
         if(success) {
             dispatch(dialogActions.getDialogsByIdAC(data));
             return { success, data };
         }
     } catch (err) {
-        return err.response.data;
+        return err;
     }
 };
 
@@ -43,6 +44,7 @@ export const searchDialogs = (value: string, userId: string): ThunkActionType<Re
        const response = await DialogAPI.searchDialogs(value, userId);
 
        const { success, data, message } = response.data;
+
        if(success) {
            dispatch(dialogActions.clearDialogListAC());
            dispatch(dialogActions.searchDialogsAC(data));
@@ -51,6 +53,6 @@ export const searchDialogs = (value: string, userId: string): ThunkActionType<Re
        }
    } catch (err) {
        dispatch(dialogActions.clearDialogListAC());
-       return err.response.data;
+       return err;
    }
 }
