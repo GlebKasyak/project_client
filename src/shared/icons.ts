@@ -21,7 +21,9 @@ import {
     CloseOutlined,
     EyeOutlined,
     LikeOutlined,
-    DislikeOutlined
+    DislikeOutlined,
+    CaretUpOutlined,
+    CaretDownOutlined
 
 } from "@ant-design/icons";
 
@@ -48,5 +50,7 @@ export default {
     CloseOutlined,
     EyeOutlined,
     LikeOutlined,
-    DislikeOutlined
+    DislikeOutlined,
+    CaretUpOutlined,
+    CaretDownOutlined
 };

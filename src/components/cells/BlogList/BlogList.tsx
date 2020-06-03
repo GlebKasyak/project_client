@@ -1,15 +1,17 @@
 import React, { FC } from "react";
-import cn from "classnames";
 import { List, Pagination, Button, Tooltip } from "antd";
 
-import UserAvatar from "../../atoms/UserAvatar/UserAvatar";
+import { UserAvatar, LikeDislike, Comments } from "../../index";
+
 import "./style.scss";
 
+import { countOfComments } from "../../../shared/commentsMethods";
 import { getReactions } from "../../../shared/reactionMethods";
 import { getTimeMessage } from "../../../shared/helpres";
 import { IBlog, BlogPagination } from "../../../interfaces/blog";
-import { HandleClickType } from "./BlogListContainer";
+import { SetStateType } from "../../../interfaces/common";
 import icons from "../../../shared/icons";
+import cn from "classnames";
 
 type Props = {
     blogs: Array<IBlog>,
@@ -17,7 +19,8 @@ type Props = {
     parentPage: "UserInfoPage" | "ProfilePage"
     totalBlogsCount: number,
     pagination: BlogPagination,
-    onClick: HandleClickType,
+    visibleBlogId: string,
+    setVisibleBlogId: SetStateType<string>
     deleteBlog: (blogId: string) => void,
     setBlogPage: (page: number) => void,
 }
@@ -29,7 +32,8 @@ const BlogList: FC<Props> = (
         parentPage,
         pagination,
         totalBlogsCount,
-        onClick,
+        visibleBlogId,
+        setVisibleBlogId,
         deleteBlog,
         setBlogPage,
     }) => {
@@ -55,57 +59,68 @@ const BlogList: FC<Props> = (
                     const { avatar, firstName, secondName, isOnline } = blog.author;
                     const [likes, dislikes, likeAction, dislikeAction] = getReactions(blog.reactions, selfId);
 
+                    const numberOfComments = countOfComments(blog.comments);
+                    const isVisibleComments = visibleBlogId === blog._id;
+
+                    const setVisibleComment = () => {
+                        isVisibleComments
+                            ? setVisibleBlogId("")
+                            : setVisibleBlogId(blog._id);
+                    };
+
                     return (
-                        <List.Item
-                            key={ blog.title }
-                            className="blog-item"
-                            actions={[
-                                <div
-                                    onClick={ onClick.bind(null, blog._id, true, likeAction) }
-                                    className={ cn({ "is-active": likeAction }) }
-                                    key="likes"
-                                >
-                                    <icons.LikeOutlined />
-                                    { likes }
-                                </div>,
-                                <div
-                                    onClick={ onClick.bind(null, blog._id, false, dislikeAction) }
-                                    className={ cn({ "is-active": dislikeAction }) }
-                                    key="dislikes"
-                                >
-                                    <icons.DislikeOutlined />
-                                    { dislikes }
-                                </div>,
-                                <div key="comments" >
-                                    <icons.MessageOutlined />
-                                    2
-                                </div>,
-                                <Tooltip title="Delete blog" >
-                                    { isEditMode &&
-                                        <Button
-                                            onClick={ deleteBlog.bind(null, blog._id) }
-                                            type="danger"
-                                            key="delete btn"
-                                            size="small"
-                                        >
-                                            <icons.CloseCircleOutlined />
-                                        </Button>
+                        <>
+                            <List.Item
+                                key={ blog.title }
+                                className="blog-item"
+                                actions={[
+                                    <LikeDislike
+                                        likeAction={ likeAction }
+                                        dislikeAction={ dislikeAction }
+                                        likes={ likes }
+                                        dislikes={ dislikes }
+                                        author={ selfId }
+                                        itemName="blogId"
+                                        itemId={ blog._id }
+                                    />,
+                                    <div
+                                        onClick={ setVisibleComment }
+                                        className={ cn({ "is-active": isVisibleComments }) }
+                                        key="comments"
+                                    >
+                                        <icons.MessageOutlined />&nbsp;
+                                        { numberOfComments }
+                                    </div>,
+                                    <Tooltip title="Delete blog" >
+                                        { isEditMode &&
+                                            <Button
+                                                onClick={ deleteBlog.bind(null, blog._id) }
+                                                type="danger"
+                                                key="delete btn"
+                                                size="small"
+                                            >
+                                                <icons.CloseCircleOutlined />
+                                            </Button>
+                                        }
+                                    </Tooltip>
+                                ]}
+                            >
+                                <List.Item.Meta
+                                    avatar={ <UserAvatar avatar={ avatar } status={ isOnline } /> }
+                                    title={
+                                        <div className="blog-item__title" >
+                                            <span>{ `${ secondName } ${ firstName }` }</span>
+                                            <span className="blog-item__time" >{ getTimeMessage(blog.createdAt!) }</span>
+                                        </div>
                                     }
-                                </Tooltip>
-                            ]}
-                        >
-                            <List.Item.Meta
-                                avatar={ <UserAvatar avatar={ avatar } status={ isOnline } /> }
-                                title={
-                                    <div className="blog-item__title" >
-                                        <span>{ `${ secondName } ${ firstName }` }</span>
-                                        <span className="blog-item__time" >{ getTimeMessage(blog.createdAt!) }</span>
-                                    </div>
-                                }
-                                description={ blog.title }
-                            />
-                            { blog.description }
-                        </List.Item>
+                                    description={ blog.title }
+                                />
+                                { blog.description }
+                            </List.Item>
+                            { isVisibleComments &&
+                                <Comments blogId={ blog._id } commentList={ blog.comments } />
+                            }
+                        </>
                     )
                 }}
             />

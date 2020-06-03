@@ -1,0 +1,10 @@
+@import "../../../assets/styles/variables";
+
+.like-dislike {
+  display: flex;
+
+  .like, .dislike {
+    padding: 0 0.5rem;
+    cursor: pointer;
+  }
+}

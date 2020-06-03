@@ -42,7 +42,8 @@ export type ScrollDataType = {
     userId: string,
     limit: number,
     page: number,
-    filter?: string
+    filter?: string,
+    value?: string
 };
 
 export interface IResponseData<T> extends ResponseType {

@@ -2,9 +2,11 @@ import { Reducer } from "redux";
 
 import * as blogTypes from "../types/blogTypes";
 import { blogActions } from "../actions/blog.action";
-import { BlogState } from "../../interfaces/blog";
+import { BlogState, IBlog } from "../../interfaces/blog";
+import { IComment } from "../../interfaces/comment";
 import { exhaustiveCheck } from "../../shared/helpres";
-import { incrBlogReaction, decrBlogReaction } from "../../shared/reactionMethods";
+import { incrReaction, decrReaction } from "../../shared/reactionMethods";
+import { getBlogComments } from "../../shared/commentsMethods";
 import { InferActionsTypes } from "./index";
 
 const initialState: BlogState = {
@@ -65,14 +67,41 @@ const reducer: Reducer<BlogState, ActionsTypes> = (state = initialState, action:
         case blogTypes.INCR_BLOG_REACTIONS:
             return {
                 ...state,
-                blogs: state.blogs.map(blog => incrBlogReaction(blog, action.payload))
+                blogs: state.blogs.map(blog => {
+                    if(action.payload.blogId) {
+                        return incrReaction("blogId", blog, action.payload) as IBlog
+                    } else {
+                        return {
+                            ...blog,
+                            comments: blog.comments.map(comment =>
+                                incrReaction("commentId", comment, action.payload) as IComment
+                            )
+                        }
+                    }
+                })
             };
-
         case blogTypes.DECR_BLOG_REACTIONS:
             return {
                 ...state,
-                blogs: state.blogs.map(blog => decrBlogReaction(blog, action.payload))
+                blogs: state.blogs.map(blog => {
+                    if(action.payload.blogId) {
+                        return decrReaction("blogId", blog, action.payload) as IBlog
+                    } else {
+                        return {
+                            ...blog,
+                            comments: blog.comments.map(comment =>
+                                decrReaction("commentId", comment, action.payload) as IComment
+                            )
+                        }
+                    }
+                })
             };
+        case blogTypes.GET_BLOG_COMMENTS:
+            const { data, blogId } = action.payload;
+            return {
+                ...state,
+                blogs: state.blogs.map(blog => getBlogComments(blog, blogId, data))
+            }
         default:
             exhaustiveCheck(action);
             return state;

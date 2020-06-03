@@ -1,11 +1,11 @@
-import React, { useEffect, ComponentType } from "react";
+import React, { FC, useEffect, ComponentType } from "react";
 import { RouteComponentProps  } from "react-router-dom";
 
 import { PageUrls } from "../shared/constants";
 import { storageKeys } from "../shared/constants/commons";
 
 const WithDoNotAuthRedirect = <P extends RouteComponentProps>(Component: ComponentType<P>) => {
-     const RedirectComponent: React.FC<P> = props => {
+     const RedirectComponent: FC<P> = props => {
         useEffect(() => {
             let isAuth = localStorage.getItem(storageKeys.isAuth);
 

@@ -36,10 +36,12 @@ const RegisterFormContainer: FC<FormComponentProps> = memo(({ form }) => {
      setIsLoading(false);
      form.resetFields();
 
-     if(response.data.success) history.push("login");
+     if(response.data.success) {
+       history.push("login");
+     }
 
    } catch (err) {
-     setEr(err.response.data.err.errmsg);
+     setEr(err.message);
      setIsLoading(false);
    }
   };

@@ -1,5 +1,6 @@
 import { IDbDocumentType } from "./common";
 import { ReactionFromDB } from "./reaction";
+import { IComment } from "./comment";
 import { IUser } from "./user";
 
 export type BlogState = {
@@ -19,7 +20,8 @@ export interface IBlog extends IDbDocumentType{
     author: IUser,
     title: string,
     description: string,
-    reactions: Array<ReactionFromDB>
+    reactions: Array<ReactionFromDB>,
+    comments: Array<IComment>
 }
 
 export type NewBlogData = {

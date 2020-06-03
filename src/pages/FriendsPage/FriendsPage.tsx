@@ -18,6 +18,7 @@ type Props = {
     filter: Filters
     setNextPage: () => Promise<void>,
     getAllFriends: (filter: Filters) => void,
+    onChange: (value: string) => void,
     onSearchFriends: (value: string) => Promise<void>,
 }
 
@@ -26,10 +27,11 @@ const FriendsPage: FC<Props> = (
         friends,
         history,
         hasMore,
-        setNextPage,
         page ,
-        getAllFriends,
         filter,
+        setNextPage,
+        getAllFriends,
+        onChange,
         onSearchFriends
     }) => (
     <div className="container" >
@@ -42,7 +44,10 @@ const FriendsPage: FC<Props> = (
                 <div>
                     <Input.Search
                         placeholder="Friends search"
-                        onSearch={ value => onSearchFriends(value) }
+                        onSearch={ value => {
+                            onSearchFriends(value);
+                            onChange(value);
+                        } }
                     />
                 </div>
             </div>

@@ -33,7 +33,9 @@ let App: FC<PropType> = ({ isAuth, userId, getAuthUserData, getOnlineStatus }) =
   useEffect(() => {
     const authData = localStorage.getItem(storageKeys.isAuth);
 
-    if(!!authData && JSON.parse(authData)) getAuthUserData();
+    if(!!authData && JSON.parse(authData)) {
+        getAuthUserData();
+    }
 
     if(isAuth) {
         socket.setOnlineStatus({ userId, isOnline: true });

@@ -1,10 +1,11 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import * as blogTypes from "../types/blogTypes";
-import { BlogAPI, ReactionAPI } from "../../apiServices";
+import { BlogAPI, ReactionAPI, CommentAPI } from "../../apiServices";
 import { AppStateType, InferActionsTypes } from "../reducers";
 
 import { ReactionType, ReactionFromDB } from "../../interfaces/reaction";
+import { PostCommentDataType, IComment } from "../../interfaces/comment";
 import { NewBlogData, IBlog, GetBlogsData } from "../../interfaces/blog";
 
 export const blogActions = {
@@ -15,6 +16,8 @@ export const blogActions = {
     setBlogPageAC: (payload: number) => ({ type: blogTypes.SET_BLOG_PAGE, payload } as const),
     createReactionAC: (payload: ReactionFromDB) => ({ type: blogTypes.INCR_BLOG_REACTIONS, payload } as const),
     remoteReactionAC: (payload: ReactionFromDB) => ({ type: blogTypes.DECR_BLOG_REACTIONS, payload } as const),
+    getBlogCommentsAC: (payload: { data: Array<IComment>, blogId: string }) =>
+        ({ type: blogTypes.GET_BLOG_COMMENTS, payload } as const),
 };
 
 
@@ -70,3 +73,20 @@ export const remoteReaction = (newData: ReactionType): ThunkActionType<void> => 
     }
 };
 
+export const addComment = (newData: PostCommentDataType): ThunkActionType<void> => async dispatch => {
+    const response = await CommentAPI.postComment(newData);
+    const { success, data } = response.data;
+
+    if(success) {
+        dispatch(blogActions.getBlogCommentsAC({ data, blogId: newData.blogId }))
+    }
+};
+
+export const deleteComment = (commentId: string, blogId: string): ThunkActionType<void> => async dispatch => {
+    const response = await CommentAPI.deleteComment(commentId);
+    const { success, data } = response.data;
+
+    if(success) {
+        dispatch(blogActions.getBlogCommentsAC({ data, blogId }))
+    }
+};

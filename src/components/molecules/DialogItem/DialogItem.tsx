@@ -35,7 +35,7 @@ const DialogItem: FC<PropsType> = (
                 avatar={ <UserAvatar avatar={ avatar } status={ status } /> }
                 title={ <p className="dialog-item__partner-name">{ name }</p> }
                 description={
-                    lastMessage && (
+                    lastMessage && lastMessage.author && (
                         <div className="last-message">
                             <img
                                 src={ `${ ENV.SERVER_URL }/${ lastMessage.author.avatar }` }

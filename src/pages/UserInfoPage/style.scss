@@ -69,4 +69,17 @@
     }
   }
 
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    .left-block {
+      margin: auto;
+    }
+
+    .right-block {
+      margin: $default-margin auto 0;
+      min-height: 300px;
+    }
+  }
+
 }
