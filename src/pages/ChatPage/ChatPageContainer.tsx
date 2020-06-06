@@ -59,7 +59,6 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
                 socket.socket.emit(socketEvents.join, { dialogId: id, limit }, (messages: Array<IMessage>) => {
                     !!messages.length && setTheLastMessageId(messages[messages.length - 1]._id);
                     setMessages(messages.reverse());
-
                 });
             }
         }
@@ -93,7 +92,9 @@ const ChatPageContainer: FC<PropsType> = ({ user }) => {
         socket.socket.on(socketEvents.readMsg, (readMessageKeys: Array<string>) => {
             setMessages((prevMessages: Array<IMessage>) => prevMessages.map(message => {
                 for(let i = 0; i < readMessageKeys.length; i ++) {
-                    message = readMessageKeys[i] === message._id ? { ...message, unread: false } : message;
+                    message = readMessageKeys[i] === message._id
+                        ? { ...message, unread: false }
+                        : message;
                 }
 
                 return message;

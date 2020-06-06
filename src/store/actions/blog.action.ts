@@ -52,15 +52,11 @@ export const getBlogs = (newData: GetBlogsData): ThunkActionType<void> => async 
 };
 
 export const createReaction = (newData: ReactionType): ThunkActionType<void> => async dispatch => {
-    try {
-        const response = await ReactionAPI.createReaction(newData);
-        const { success, data } = response.data;
+    const response = await ReactionAPI.createReaction(newData);
+    const { success, data } = response.data;
 
-        if(success) {
-            dispatch(blogActions.createReactionAC(data))
-        }
-    } catch (err) {
-        console.log(err)
+    if(success) {
+        dispatch(blogActions.createReactionAC(data))
     }
 };
 

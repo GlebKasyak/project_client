@@ -38,7 +38,7 @@ const UsersPage: FC<PropsType> = ({ users, ...props }) =>  (
                     dataLength={ users.length }
                 >
                     <div className="user-page__user-list">
-                        { users.map((user: IUser) =>
+                        { users.map(user =>
                             <UserCard user={ user } key={ user._id } onClick={ props.onClick } /> )
                         }
                     </div>

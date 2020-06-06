@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import icons from "../../../shared/icons";
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 }
 
 const TextWithIcon: FC<Props> = ({ onClick, text, isOpen, ...props }) => (
-    <p onClick={ onClick } {...props} >
+    <p onClick={ onClick } { ...props } >
         { isOpen
             ? <icons.CaretUpOutlined />
             : <icons.CaretDownOutlined />

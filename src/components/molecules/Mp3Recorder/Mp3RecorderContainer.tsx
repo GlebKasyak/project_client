@@ -23,7 +23,7 @@ const Mp3RecorderContainer: FC<Props> = ({ seIsVisibleAudio, handleSendAudio }) 
 
     return <Mp3Recorder
         record={ record }
-        handleStop={ handleStop }
+        onStop={ handleStop }
         stopRecording={ stopRecording }
         startRecording={ () => setRecord(true) }
     />
