@@ -1,7 +1,7 @@
 import React, { useEffect, FC } from "react";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-import { Beforeunload } from 'react-beforeunload';
+import { Beforeunload } from "react-beforeunload";
 
 import { Home, UsersPage, DialogsPage, ChatPage, ProfilePage, UserInfoPage, FriendsPage, Page404 } from "./pages";
 import { NavBar } from "./components";

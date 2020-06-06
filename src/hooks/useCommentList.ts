@@ -4,7 +4,7 @@ import { IComment } from "../interfaces/comment";
 
 type UseCommentListType = [Array<IComment>, Array<IComment>];
 
-export const useCommentList = (commentList: Array<IComment>, parentCommentId: string): UseCommentListType => {
+export const useCommentList = (commentList: Array<IComment>, parentCommentId?: string): UseCommentListType => {
     const [currentCommentList, setCurrentCommentList] = useState<Array<IComment>>([]);
     const [nextCommentList, setNextCommentList] = useState<Array<IComment>>([]);
 
@@ -19,6 +19,6 @@ export const useCommentList = (commentList: Array<IComment>, parentCommentId: st
             return comment;
         });
     }, [commentList, parentCommentId]);
-    console.log(currentCommentList, nextCommentList)
+
     return [currentCommentList, nextCommentList];
 };

@@ -7,17 +7,17 @@ import "./style.scss";
 
 type Props = {
     record: boolean,
-    handleStop: (recordedData: ReactMicStopEvent) => void,
+    onStop: (recordedData: ReactMicStopEvent) => void,
     stopRecording: () => Promise<void>,
     startRecording: () => void
 }
 
-const Mp3RecorderContainer: FC<Props> = ({ record, handleStop, stopRecording, startRecording }) => (
+const Mp3RecorderContainer: FC<Props> = ({ record, onStop, stopRecording, startRecording }) => (
     <div className="mp3-recorder" >
         <ReactMic
             record={ record }
             className="mp3-recorder__sound-wave"
-            onStop={ handleStop }
+            onStop={ onStop }
             strokeColor="#1890ff"
             backgroundColor="#edeef0" />
         <Button onClick={ startRecording } className="mp3-recorder__start-btn" >
