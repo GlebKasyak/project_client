@@ -9,7 +9,7 @@ import { ENV, PageUrls } from "../shared/constants";
 export default (store: StoreType, history: History) => {
     axios.defaults.baseURL = `${ ENV.SERVER_URL }/api/`;
 
-    axios.interceptors.request.use(config =>{
+    axios.interceptors.request.use(config => {
         const authData = localStorage.getItem(storageKeys.token);
         config.headers.Authorization = !!authData && `Bearer ${ JSON.parse(authData).token }`;
 
