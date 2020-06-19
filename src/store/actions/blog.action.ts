@@ -1,6 +1,7 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import * as blogTypes from "../types/blogTypes";
+import { userActions } from "./user.action";
 import { BlogAPI, ReactionAPI, CommentAPI } from "../../apiServices";
 import { AppStateType, InferActionsTypes } from "../reducers";
 
@@ -21,7 +22,7 @@ export const blogActions = {
 };
 
 
-type ThunkActionType<T> = ThunkAction<Promise<T>, AppStateType, unknown, InferActionsTypes<typeof blogActions>>;
+type ThunkActionType<T> = ThunkAction<Promise<T>, AppStateType, unknown, InferActionsTypes<typeof blogActions | typeof userActions>>;
 export type ThunkDispatchBlogsType = ThunkDispatch<AppStateType, unknown, InferActionsTypes<typeof blogActions>>;
 
 export const createBlog = (newData: NewBlogData): ThunkActionType<void> => async dispatch => {
@@ -43,10 +44,11 @@ export const deleteBlog = (blogId: string): ThunkActionType<void> => async dispa
 
 export const getBlogs = (newData: GetBlogsData): ThunkActionType<void> => async dispatch => {
    const response = await BlogAPI.getBlogs(newData);
-   const { data: { blogs, totalCount }, success } = response.data;
+   const { data: { blogs, totalCount, friends }, success } = response.data;
 
    if(success) {
        dispatch(blogActions.getBlogsAC(blogs));
+       dispatch(userActions.getFriendsAC(friends));
        !!totalCount.length && dispatch(blogActions.setTotalBlogsCountAC(totalCount[0]));
    }
 };

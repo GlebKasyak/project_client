@@ -5,20 +5,33 @@ import { Menu, Button } from "antd";
 
 import { PageUrls } from "../../../shared/constants";
 import { storageKeys } from "../../../shared/constants/commons";
-import { logout, ThunkDispatchUsersType } from "../../../store/actions/user.action";
+import { AppStateType } from "../../../store/reducers";
+import { logout } from "../../../store/actions/user.action";
+import { UserSelectors } from "../../../store/selectors";
 import icons from "../../../shared/icons";
+import socket from "../../../socketServices";
 import "./style.scss";
 
+type MapStateToProps = {
+    userId: string
+};
 
-type Props = {
-    dispatch: ThunkDispatchUsersType
+type MapDispatchToProps = {
+    logout: () => void
 }
 
-const NavBar: FC<Props> = ({ dispatch }) => {
+type Props = MapStateToProps & MapDispatchToProps;
+
+const NavBar: FC<Props> = ({ logout, userId }) => {
     const history = useHistory();
     const { pathname } = history.location;
 
     const authData = localStorage.getItem(storageKeys.isAuth);
+
+    const handleClick = () => {
+        logout();
+        socket.setOnlineStatus({ userId, isOnline: false });
+    };
 
     let navigationsLinks = authData && JSON.parse(authData)
         ? (
@@ -59,7 +72,7 @@ const NavBar: FC<Props> = ({ dispatch }) => {
                             type="danger"
                             className="w-100 btn"
                             icon="logout"
-                            onClick={ () => dispatch(logout()) }
+                            onClick={ handleClick }
                         >
                             Logout
                         </Button>
@@ -93,4 +106,7 @@ const NavBar: FC<Props> = ({ dispatch }) => {
 };
 
 
-export default connect()(NavBar);
+export default connect<MapStateToProps, MapDispatchToProps, {}, AppStateType>(
+    state => ({ userId: UserSelectors.getUserId(state) }),
+    { logout }
+)(NavBar);

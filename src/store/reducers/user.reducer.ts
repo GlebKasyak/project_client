@@ -87,6 +87,14 @@ const reducer: Reducer<UserState, ActionsTypes> = (state = initialState, action:
                     status: action.payload
                 }
             };
+        case userTypes.GET_FRIENDS:
+            return {
+               ...state,
+               user: {
+                   ...state.user,
+                   friends: action.payload
+               }
+            };
         case userTypes.CHANGE_USER_INFO:
             return {
                 ...state,

@@ -67,7 +67,7 @@ const UserInfoPageContainer: FC<Props> = ({ selfId }) => {
         isFriend={ isFriend }
         onToggleFriend={ handleToggleFriend }
     />
-}
+};
 
 export default connect<Props, {}, {}, AppStateType>(
     store => ({ selfId: UserSelectors.getUserId(store) })

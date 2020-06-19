@@ -20,6 +20,7 @@ export const userActions = {
     clearUsersListAC: () => ({ type: userTypes.CLEAR_USERS_LIST } as const),
     getOnlineStatusAC: (payload: boolean) => ({ type: userTypes.GET_ONLINE_STATUS, payload } as const),
     setUserStatusAC: (payload: string) => ({ type: userTypes.SET_USER_STATUS, payload } as const),
+    getFriendsAC: (payload: Array<string>) => ({ type: userTypes.GET_FRIENDS, payload } as const),
     changeUserInfoAC: (payload: ChangedUserInfoType) => ({ type: userTypes.CHANGE_USER_INFO, payload } as const),
 };
 
